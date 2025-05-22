@@ -1,0 +1,125 @@
+@startuml
+
+
+RegionGeografica "1" *-- "*" ZonaDeCobertura
+RegionGeografica -- Ubicacion
+
+Organizacion <|-- OrganizacionDeSalud
+Organizacion <|-- OrganizacionEducativa
+Organizacion <|-- OrganizacionCultural
+Organizacion <|-- OrganizacionDeAsistencia
+
+Usuario <|-- UsuarioComun
+Usuario <|-- Especialista
+
+
+
+class Muestra {
++ opinionesDeLaMuestra = new ArrayList <Opinion>(): ArrayList <Opinion>
++ fotoDeLaMuestra: File 
++ ubicacionDeLaMuestra: Ubicacion
+- esVerificada: boolean 
+- tieneOpinionExperta: boolean 
+	
++ agregarOpinion(Opinion opinionAAgregar): void 
++ resultadoFinal(): OpinionDeLaMuestra 
++ getOpinionesDeLaMuestra(): ArrayList<Opinion> 
++ getListaOpinionesExpertasDeLaMuestra(): ArrayList<Opinion> 
++ getFotoDeLaMuestra(): File 
++ getUbicacionDeLaMuestra(): Ubicacion
++ esVerificada(): boolean
++ listaDeResultadosDeOpinionDeUnaLista(ArrayList <Opinion> unaLista): ArrayList <OpinionDeLaMuestra> 
++ opinionMayoritaria(ArrayList <OpinionDeLaMuestra>lista): OpinionDeLaMuestra
++ tieneEmpateDeOpiniones(ArrayList <OpinionDeLaMuestra> listaDeResultados): boolean
+
+}
+
+abstract class Usuario {
++ cantidadDeEnvios: Integer
++ cantidadDeRevisiones: Integer
+
++ nivelDeUsuario(): NivelDeExperiencia
+abstract  cumpleCondicionDeExperto(): boolean
+
+}
+
+class UsuarioComun {
++ cantidadDeEnvios: Integer
++ cantidadDeRevisiones: Integer
+
++ nivelDeUsuario(): NivelDeExperiencia
+abstract  cumpleCondicionDeExperto(): boolean
+
+}
+
+class Especialista {
++ cantidadDeEnvios: Integer
++ cantidadDeRevisiones: Integer
+
++ nivelDeUsuario(): NivelDeExperiencia
+abstract  cumpleCondicionDeExperto(): boolean
+
+}
+
+class Opinion {
++  usuario: Usuario
++  muestra: Muestra
++  opinion: OpinionDeLaMuestra
+
++ Opinion(Usuario usuario, Muestra muestra, OpinionDeLaMuestra opinion)
++ getUsuario(): Usuario
++ getMuestra(): Muestra
++ getOpinion(): OpinionDeLaMuestra
++ getTipo(): NivelDeExperiencia 
+
+	
+}
+
+enum OpinionDeLaMuestra {
+	VinchucaInfestans, VinchucaSordida, VinchucaGuasayana, ChincheFoliada, PhtiaChinche, Ninguna, ImagenPocoClara, noDefinido;
+}
+
+enum NivelDeExperiencia {
+	Experto, Basico; 
+}
+
+class Ubicacion {
+- latitud: double.
+- longitud: double.
+    
++ Ubicacion(double latitud, double longitud)
++ getLatitud(): double.
++ getLongitud(): double.
++ distanciaEntreDosUbicaciones(Ubicacion primerUbicacion, Ubicacion segundaUbicacion): double.
++ muestrasADeterminadaDistaciaDeUnaMuestra(Integer distancia, Muestra muestra): ArrayList<Muestras> 
+}
+
+
+class ZonaDeCobertura {
+- epicento: Ubicacion 
+- radio: Integer
+- nombre: String 
+- muestrasDeLaZona: ArrayList<Muestra>
+	
++ ZonaDeCobertura(Ubicacion epicento, Integer radio, String nombre)
++ getEpicento(): Ubicacion
++ getRadio(): Integer
++ getNombre(): String
++ getMuestrasDeLaZona(): ArrayList<Muestra>
+
+}
+
+
+abstract class Organizacion{}
+
+class OrganizacionDeSalud{}
+
+class OrganizacionEducativa{}
+
+class OrganizacionCultural{}
+
+class OrganizacionDeAsistencia{}
+
+
+
+@enduml
