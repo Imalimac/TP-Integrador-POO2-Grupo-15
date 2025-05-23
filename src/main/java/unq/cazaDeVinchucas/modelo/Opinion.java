@@ -3,10 +3,10 @@ package main.java.unq.cazaDeVinchucas.modelo;
 public class Opinion {
 	public Usuario usuario;
 	public Muestra muestra;
-	public OpinionDeLaMuestra opinion;
-	final NivelDeExperiencia tipo = usuario.nivelDeUsuario();
+	public String opinion;
+	final String tipo = usuario.nivelDeUsuario();
 	
-	public Opinion(Usuario usuario, Muestra muestra, OpinionDeLaMuestra opinion) {
+	public Opinion(Usuario usuario, Muestra muestra, String opinion) {
 		super();
 		this.usuario = usuario;
 		this.muestra = muestra;
@@ -21,11 +21,11 @@ public class Opinion {
 		return muestra;
 	}
 
-	public OpinionDeLaMuestra getOpinion() {
+	public String getOpinion() {
 		return opinion;
 	}
 
-	public NivelDeExperiencia getTipo() {
+	public String getTipo() {
 		return tipo;
 	}
 	

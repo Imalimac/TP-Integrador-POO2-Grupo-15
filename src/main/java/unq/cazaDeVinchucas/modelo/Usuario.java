@@ -1,15 +1,47 @@
 package main.java.unq.cazaDeVinchucas.modelo;
 
+import java.util.ArrayList;
+
 public abstract class Usuario {
 
-	public Integer cantidadDeEnvios;
-	public Integer cantidadDeRevisiones;
+	private Integer cantidadDeEnvios;
+	private Integer cantidadDeRevisiones;
+	private ArrayList<Muestra>muestrasOpinadas = new ArrayList<Muestra>();
 	
-	public NivelDeExperiencia nivelDeUsuario() {
+	
+	public String nivelDeUsuario() {
 		if (this.cumpleCondicionDeExperto()) {
-			return NivelDeExperiencia.Experto;
+			return "Experto";
 		} else {
-			return NivelDeExperiencia.Basico;
+			return "Basico";
+		}
+	}
+	
+	public Integer getCantidadDeEnvios() {
+		return cantidadDeEnvios;
+	}
+
+	public void setCantidadDeEnvios(Integer cantidadDeEnvios) {
+		this.cantidadDeEnvios = cantidadDeEnvios;
+	}
+
+	public Integer getCantidadDeRevisiones() {
+		return cantidadDeRevisiones;
+	}
+
+	public void setCantidadDeRevisiones(Integer cantidadDeRevisiones) {
+		this.cantidadDeRevisiones = cantidadDeRevisiones;
+	}
+
+	public ArrayList<Muestra> getMuestrasOpinadas() {
+		return muestrasOpinadas;
+	}
+
+	public void opinarSobreUnaMuestra(Muestra muestra, String opinion) {
+		if(!this.getMuestrasOpinadas().contains(muestra) && muestra.getEstadoDeLaMuestra().getEstado()!="Verificada") {
+		muestra.agregarOpinion(new Opinion(this, muestra, opinion));
+		this.cantidadDeRevisiones = this.cantidadDeRevisiones + 1; 
+		this.muestrasOpinadas.add(muestra);
 		}
 	}
 	

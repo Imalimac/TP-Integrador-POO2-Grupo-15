@@ -2,71 +2,58 @@ package main.java.unq.cazaDeVinchucas.modelo;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
 
 
 public class Muestra {
 	
-	public ArrayList <Opinion> opinionesDeLaMuestra = new ArrayList <Opinion>();
-
+	public Usuario usuarioDueñoDeLaMuestra;
 	public File fotoDeLaMuestra; 
 	public Ubicacion ubicacionDeLaMuestra;
+	private EstadoDeLaMuestra estadoDeLaMuestra = new Normal(this);
+	public ArrayList <Opinion> opinionesDeLaMuestra = new ArrayList <Opinion>();
 	
-	private boolean esVerificada = false;
-	private boolean tieneOpinionExperta = false;
-	
-	public void agregarOpinion(Opinion opinionAAgregar) {
-		if(opinionAAgregar.getTipo()== NivelDeExperiencia.Experto) {
-			opinionesDeLaMuestra.add(opinionAAgregar);
-			this.tieneOpinionExperta = true;
-		} else {
-			opinionesDeLaMuestra.add(opinionAAgregar);
-		}
-	}
-	
-	public OpinionDeLaMuestra resultadoFinal() {
-		 if (! tieneOpinionExperta && !this.tieneEmpateDeOpiniones(this.listaDeResultadosDeOpinionDeUnaLista(opinionesDeLaMuestra))) {
-			 return  this.opinionMayoritaria(this.listaDeResultadosDeOpinionDeUnaLista(opinionesDeLaMuestra));
-		} else if (! tieneOpinionExperta && this.tieneEmpateDeOpiniones(this.listaDeResultadosDeOpinionDeUnaLista(opinionesDeLaMuestra))) {
-			return OpinionDeLaMuestra.noDefinido;
-		} else if  (tieneOpinionExperta && !this.tieneEmpateDeOpiniones(this.listaDeResultadosDeOpinionDeUnaLista(this.getListaOpinionesExpertasDeLaMuestra()))) {
-			return this.opinionMayoritaria(this.listaDeResultadosDeOpinionDeUnaLista(this.getListaOpinionesExpertasDeLaMuestra()));
-		} else {
-			return OpinionDeLaMuestra.noDefinido; 
-		}
+	//Constructor de la muestra:
+	public Muestra(Usuario usuarioDueñoDeLaMuestra, File fotoDeLaMuestra, Ubicacion ubicacionDeLaMuestra,
+			EstadoDeLaMuestra estadoDeLaMuestra, ArrayList<Opinion> opinionesDeLaMuestra) {
+		super();
+		this.usuarioDueñoDeLaMuestra = usuarioDueñoDeLaMuestra;
+		this.fotoDeLaMuestra = fotoDeLaMuestra;
+		this.ubicacionDeLaMuestra = ubicacionDeLaMuestra;
+		this.estadoDeLaMuestra = estadoDeLaMuestra;
+		this.opinionesDeLaMuestra = opinionesDeLaMuestra;
 	}
 
+
+	//Getters y Setters de la muestra:
+	
+	public void agregarOpinion(Opinion opinionAAgregar) {
+			this.opinionesDeLaMuestra.add(opinionAAgregar);
+			this.estadoDeLaMuestra.corroborarEstado();
+	}
 	
 	public ArrayList<Opinion> getOpinionesDeLaMuestra() {
-		return opinionesDeLaMuestra;
+		return this.opinionesDeLaMuestra;
 	}
-	
-	public ArrayList<Opinion> getListaOpinionesExpertasDeLaMuestra() {
-		ArrayList <Opinion> listaDeOpinionesExpertas = new ArrayList <Opinion>();
-		for (Opinion opinion : this.opinionesDeLaMuestra) {
-			if(opinion.getTipo()==NivelDeExperiencia.Experto) {
-				listaDeOpinionesExpertas.add(opinion);
-			}
-		}
-			return listaDeOpinionesExpertas;
-	}
-	
+		
 	public File getFotoDeLaMuestra() {
-		return fotoDeLaMuestra;
+		return this.fotoDeLaMuestra;
 	}
 
 	public Ubicacion getUbicacionDeLaMuestra() {
-		return ubicacionDeLaMuestra;
-	}
-
-	public boolean esVerificada() {
-		return esVerificada;
+		return this.ubicacionDeLaMuestra;
 	}
 	
-	public ArrayList <OpinionDeLaMuestra> listaDeResultadosDeOpinionDeUnaLista(ArrayList <Opinion> unaLista) {
-		final ArrayList <OpinionDeLaMuestra> listaDeOpiniones = new ArrayList <OpinionDeLaMuestra>();
+	public EstadoDeLaMuestra getEstadoDeLaMuestra() {
+		return this.estadoDeLaMuestra;
+	}
+
+	public void setEstadoDeLaMuestra(EstadoDeLaMuestra estadoDeLaMuestra) {
+		this.estadoDeLaMuestra = estadoDeLaMuestra;
+	}
+
+
+	public ArrayList <String> getListaDeResultadosDeOpinionDeUnaLista(ArrayList <Opinion> unaLista) {
+		final ArrayList <String> listaDeOpiniones = new ArrayList <String>();
 		
 		for (Opinion opinion : unaLista) {
 			listaDeOpiniones.add(opinion.getOpinion());
@@ -75,47 +62,23 @@ public class Muestra {
 		return listaDeOpiniones;
 	}
 	
+	public ArrayList<Opinion> getListaOpinionesExpertasDeLaMuestra() {
+		ArrayList <Opinion> listaDeOpinionesExpertas = new ArrayList <Opinion>();
+		for (Opinion opinion : this.opinionesDeLaMuestra) {
+			if(opinion.getTipo()=="Experto") {
+				listaDeOpinionesExpertas.add(opinion);
+			}
+		}
+			return listaDeOpinionesExpertas;
+	}
+
 	
+	//Funcionalidad de la muestra:
 	
-	public OpinionDeLaMuestra opinionMayoritaria(ArrayList <OpinionDeLaMuestra>lista) {
-		return this.encontrarElementoMasComun(lista);
+	public String resultadoFinal() {
+		return this.estadoDeLaMuestra.resultadoFinal();
 	}
 	
-	public <T> T encontrarElementoMasComun(ArrayList<T> lista) {
-	        if (lista == null || lista.isEmpty()) {
-	            return null; // Se puede agregar una excepción.
-	        }
-
-	        Map<T, Integer> conteo = new HashMap<>();
-	        T elementoMasComun = null;
-	        int frecuenciaMaxima = 0;
-
-	        for (T elemento : lista) {
-	            conteo.put(elemento, conteo.getOrDefault(elemento, 0) + 1);
-	            if (conteo.get(elemento) > frecuenciaMaxima) {
-	                frecuenciaMaxima = conteo.get(elemento);
-	                elementoMasComun = elemento;
-	            } 
-	        }
-
-	        return elementoMasComun;
-	}
-	
-	public boolean tieneEmpateDeOpiniones(ArrayList <OpinionDeLaMuestra> listaDeResultados) {
-        boolean tieneEmpate = false;
-		
-        Map<OpinionDeLaMuestra, Integer> conteo = new HashMap<>();
-        int frecuenciaMaxima = 0;
-
-        for (OpinionDeLaMuestra elemento : listaDeResultados) {
-            conteo.put(elemento, conteo.getOrDefault(elemento, 0) + 1);
-            if (conteo.get(elemento) == frecuenciaMaxima) {
-                tieneEmpate= true;
-            } 
-        }
-
-        return tieneEmpate;
-	}	
 }
 
 
