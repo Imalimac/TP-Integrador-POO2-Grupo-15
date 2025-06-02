@@ -1,0 +1,18 @@
+
+
+Para organizar el proyecto decidimos utilizar una estructura de directorio estándar. Las clases se encuentran dentro de src/main/java/ y se organizan en paquetes según su funcionalidad.
+
+Así es cómo se vería:
+
+proyecto-raíz/
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   ├── unq.cazaDeVinchucas/
+│   │   │   │   ├── modelo/			--> Contiene clases que representan datos y entidades (Ej: `Vinchuca.java`, `Usuario.java`)
+│   │   │   │   ├── servicio/     	--> Contiene clases que manejan la lógica de negocio (Ej: `verificarMuestra.java`)
+│   │   │   │   ├── controlador/  	--> Contiene clases que manejan las interacciones (Ej: `BancoControlador.java`)
+│   │   │   │   ├── utilidades/   	--> Funciones auxiliares (Ej: `java.lang.Math;` 'Math.hypot()')
+│   │   ├── resources/            	--> Archivos de configuración, propiedades, documentacion, gráfico UML etc.
+│   ├── test/                     	--> Pruebas unitarias
+

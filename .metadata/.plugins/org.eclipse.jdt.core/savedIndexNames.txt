@@ -1,0 +1,24 @@
+INDEX VERSION 1.134+C:\Users\ALAN\.vscode\trabajos-git\POO2\TP-Integrador-POO2-Grupo-15\.metadata\.plugins\org.eclipse.jdt.core
+221319683.index
+3697418772.index
+2054626280.index
+549121698.index
+2398817364.index
+3556722563.index
+1865797976.index
+145613234.index
+1177324865.index
+1072304775.index
+1756334223.index
+2686121715.index
+331739936.index
+2369273359.index
+3413270776.index
+1276068049.index
+3923809011.index
+494911461.index
+3447354621.index
+259982120.index
+3522147805.index
+448153999.index
+4241030315.index

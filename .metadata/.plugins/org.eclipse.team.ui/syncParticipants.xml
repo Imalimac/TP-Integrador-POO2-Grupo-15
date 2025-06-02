@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<syncparticipants>
+<participant displayName="Git (TP_POO2-main, camiDraft)" id="org.eclipse.egit.ui.modelCompareParticipant" secondary_id="1748210291480">
+<data forceFetch="false" root="false">
+<org.eclipse.team.ui.MODEL_PARTICIPANT_SETTINGS org.eclipse.team.ui.MODEL_PARTICIPANT_DESCRIPTION="TP_POO2-main, camiDraft" startupAction="none">
+<org.eclipse.team.ui.MODEL_PARTICIPANT_REFRESH_SCHEDULE org.eclipse.team.ui.CTX_REFRESHSCHEDULE_ENABLED="false" org.eclipse.team.ui.CTX_REFRESHSCHEDULE_INTERVAL="3600" org.eclipse.team.ui.CTX_REFRESHSCHEDULE_RUNONCE="false"/>
+<org.eclipse.team.ui.MODEL_PARTICIPANT_MAPPINGS modelProviderId="org.eclipse.core.resources.modelProvider">
+<mappings>
+<resources resourcePath="/TP_POO2-main" resourceType="4"/>
+<resources resourcePath="/camiDraft" resourceType="4"/>
+</mappings>
+</org.eclipse.team.ui.MODEL_PARTICIPANT_MAPPINGS>
+</org.eclipse.team.ui.MODEL_PARTICIPANT_SETTINGS>
+<gitSynchronizeData container="C:/Users/ALAN/.vscode/trabajos-git/POO2/TP-Integrador-POO2-Grupo-15/camiDraft" dstRev="refs/heads/camiDraftInicial" inludeLocal="true" srcRev="HEAD"/>
+</data>
+</participant>
+</syncparticipants>
