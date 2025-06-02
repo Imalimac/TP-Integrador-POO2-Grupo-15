@@ -6,12 +6,15 @@ public abstract class EstadoDeLaMuestra {
 
 	
 	public EstadoDeLaMuestra(Muestra muestra) {
-		super();
-		this.muestra = muestra;
+		this.setMuestra(muestra);
 	}
 
 	public Muestra getMuestra() {
 		return muestra;
+	}
+	
+	private void setMuestra(Muestra muestra) {
+		this.muestra = muestra;
 	}
 	
 	public void cambiarEstado() {

@@ -3,9 +3,9 @@ package main.java.unq.cazaDeVinchucas.modelo;
 import java.util.ArrayList;
 import main.java.unq.cazaDeVinchucas.utilidades.BuscadorDeElementosDeUnaLista;
 
-public class Normal extends EstadoDeLaMuestra {
+public class ENormal extends EstadoDeLaMuestra {
 
-	public Normal(Muestra muestra) {
+	public ENormal(Muestra muestra) {
 		super(muestra);
 	}
 
@@ -23,7 +23,7 @@ public class Normal extends EstadoDeLaMuestra {
 
 	@Override
 	public EstadoDeLaMuestra siguienteEstado() {
-		return new ConOpinionExperta(this.getMuestra());
+		return new EConOpinionExperta(this.getMuestra());
 	}
 
 	@Override

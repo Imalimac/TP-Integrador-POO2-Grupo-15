@@ -4,13 +4,14 @@ public class Opinion {
 	public Usuario usuario;
 	public Muestra muestra;
 	public String opinion;
-	final String tipo = usuario.nivelDeUsuario();
+	final String tipo;
 	
 	public Opinion(Usuario usuario, Muestra muestra, String opinion) {
 		super();
 		this.usuario = usuario;
 		this.muestra = muestra;
 		this.opinion = opinion;
+		this.tipo = usuario.nivelDeUsuario();
 	}
 
 	public Usuario getUsuario() {

@@ -1,8 +1,8 @@
 package main.java.unq.cazaDeVinchucas.modelo;
 
-public class Verificada extends EstadoDeLaMuestra {
+public class EVerificada extends EstadoDeLaMuestra {
 	
-	public Verificada(Muestra muestra) {
+	public EVerificada(Muestra muestra) {
 		super(muestra);
 	}
 

@@ -9,21 +9,19 @@ public class Muestra {
 	public Usuario usuarioDueñoDeLaMuestra;
 	public File fotoDeLaMuestra; 
 	public Ubicacion ubicacionDeLaMuestra;
-	private EstadoDeLaMuestra estadoDeLaMuestra = new Normal(this);
+	private EstadoDeLaMuestra estadoDeLaMuestra = new ENormal(this);
 	public ArrayList <Opinion> opinionesDeLaMuestra = new ArrayList <Opinion>();
 	
 	//Constructor de la muestra:
 	public Muestra(Usuario usuarioDueñoDeLaMuestra, File fotoDeLaMuestra, Ubicacion ubicacionDeLaMuestra,
-			EstadoDeLaMuestra estadoDeLaMuestra, ArrayList<Opinion> opinionesDeLaMuestra) {
+			EstadoDeLaMuestra estadoDeLaMuestra) {
 		super();
 		this.usuarioDueñoDeLaMuestra = usuarioDueñoDeLaMuestra;
 		this.fotoDeLaMuestra = fotoDeLaMuestra;
 		this.ubicacionDeLaMuestra = ubicacionDeLaMuestra;
 		this.estadoDeLaMuestra = estadoDeLaMuestra;
-		this.opinionesDeLaMuestra = opinionesDeLaMuestra;
 	}
-
-
+	
 	//Getters y Setters de la muestra:
 	
 	public void agregarOpinion(Opinion opinionAAgregar) {
@@ -79,6 +77,7 @@ public class Muestra {
 	public String resultadoFinal() {
 		return this.estadoDeLaMuestra.resultadoFinal();
 	}
+
 	
 }
 

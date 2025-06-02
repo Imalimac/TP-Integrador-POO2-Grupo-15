@@ -3,9 +3,9 @@ package main.java.unq.cazaDeVinchucas.modelo;
 import java.util.ArrayList;
 import main.java.unq.cazaDeVinchucas.utilidades.BuscadorDeElementosDeUnaLista;
 
-public class ConOpinionExperta extends EstadoDeLaMuestra {
+public class EConOpinionExperta extends EstadoDeLaMuestra {
 
-	public ConOpinionExperta(Muestra muestra) {
+	public EConOpinionExperta(Muestra muestra) {
 		super(muestra);
 	}
 

@@ -8,7 +8,7 @@ import main.java.unq.cazaDeVinchucas.utilidades.BuscadorDeElementosDeUnaLista;
 
 import java.util.ArrayList;
 
-class BuscadorDeElementosDeUnaListaTestCase {
+class BuscadorDeElementosDeUnaListaTest {
 	private BuscadorDeElementosDeUnaLista<String> buscadorDeElementos;
 	private BuscadorDeElementosDeUnaLista<Integer> buscadorDeIntegers;
 	private ArrayList<String> unaListaDeElementos;
