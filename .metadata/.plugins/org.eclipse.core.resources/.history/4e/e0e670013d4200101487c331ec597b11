@@ -1,0 +1,97 @@
+package unq.cazaDeVinchucas.modelo;
+
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import main.java.unq.cazaDeVinchucas.modelo.EConOpinionExperta;
+import main.java.unq.cazaDeVinchucas.modelo.ENormal;
+import main.java.unq.cazaDeVinchucas.modelo.Muestra;
+import main.java.unq.cazaDeVinchucas.modelo.Opinion;
+import main.java.unq.cazaDeVinchucas.modelo.Ubicacion;
+import main.java.unq.cazaDeVinchucas.modelo.Usuario;
+
+public class MuestraTest {
+	
+	Opinion opinionMock;
+	Opinion opinion2Mock;
+	
+	Usuario usuarioMock;
+	File fileMock;
+	Ubicacion ubicacionMock;
+	ENormal eNormalMock;
+	EConOpinionExperta eExpertoMock;
+	
+	Muestra muestra;
+	List<String> listaOpinionesString;
+	
+	@Before
+	public void setUp() {
+		opinionMock = mock(Opinion.class);
+		when(opinionMock.getOpinion()).thenReturn("Experto");
+		when(opinionMock.getTipo()).thenReturn("Experto");
+		
+		opinion2Mock = mock(Opinion.class);
+		when(opinion2Mock.getOpinion()).thenReturn("Normal");
+		when(opinion2Mock.getTipo()).thenReturn("Normal");
+		
+		usuarioMock = mock(Usuario.class);
+		fileMock = mock(File.class);
+		ubicacionMock  = mock(Ubicacion.class);
+		eNormalMock = mock(ENormal.class);
+		eExpertoMock = mock(EConOpinionExperta.class);
+		
+		muestra = new Muestra(usuarioMock, fileMock, ubicacionMock, eNormalMock);
+		listaOpinionesString = new ArrayList<String>();
+		listaOpinionesString.add("Experto");
+		listaOpinionesString.add("Normal");
+	}
+	
+	@Test
+	public void agregarOpinion() {
+		muestra.agregarOpinion(opinionMock);
+		
+		assertEquals(muestra.getOpinionesDeLaMuestra().getFirst(), opinionMock);
+		verify(eNormalMock).corroborarEstado();
+	}
+	
+	@Test
+	public void settersYGetters() {
+		assertEquals(fileMock, muestra.getFotoDeLaMuestra());
+		assertEquals(eNormalMock, muestra.getEstadoDeLaMuestra());
+		assertEquals(ubicacionMock, muestra.getUbicacionDeLaMuestra());
+		
+		muestra.setEstadoDeLaMuestra(eExpertoMock);
+		assertEquals(eExpertoMock, muestra.getEstadoDeLaMuestra());
+		
+	}
+	
+	@Test
+	public void listaResultados() {
+		muestra.agregarOpinion(opinionMock);
+		muestra.agregarOpinion(opinion2Mock);
+		
+		assertEquals(listaOpinionesString, muestra.
+				getListaDeResultadosDeOpinionDeUnaLista(muestra.getOpinionesDeLaMuestra()));
+	}
+	@Test
+	public void listaResultadosExpertos() {
+		muestra.agregarOpinion(opinionMock);
+		muestra.agregarOpinion(opinion2Mock);
+		listaOpinionesString.remove("Normal");
+		
+		assertEquals(listaOpinionesString, muestra.getListaOpinionesExpertasDeLaMuestra());
+	}
+	
+	
+	
+	
+}

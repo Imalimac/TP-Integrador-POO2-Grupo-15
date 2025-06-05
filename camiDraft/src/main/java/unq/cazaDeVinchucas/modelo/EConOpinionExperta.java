@@ -1,6 +1,6 @@
 package main.java.unq.cazaDeVinchucas.modelo;
 
-import java.util.ArrayList;
+import java.util.List;
 import main.java.unq.cazaDeVinchucas.utilidades.BuscadorDeElementosDeUnaLista;
 
 public class EConOpinionExperta extends EstadoDeLaMuestra {
@@ -11,7 +11,7 @@ public class EConOpinionExperta extends EstadoDeLaMuestra {
 
 	@Override
 	String resultadoFinal() {
-		ArrayList<String> listaDeResultadosOpinionesExpertas = this.getMuestra().getListaDeResultadosDeOpinionDeUnaLista(this.getMuestra().getListaOpinionesExpertasDeLaMuestra());
+		List<String> listaDeResultadosOpinionesExpertas = this.getMuestra().getListaDeResultadosDeOpinionDeUnaLista(this.getMuestra().getListaOpinionesExpertasDeLaMuestra());
 		BuscadorDeElementosDeUnaLista <String> buscador = new BuscadorDeElementosDeUnaLista<String>();
 		
 		if(buscador.hayUnUnicoElementoConFrecuenciaMaxima(listaDeResultadosOpinionesExpertas)) {
@@ -23,7 +23,7 @@ public class EConOpinionExperta extends EstadoDeLaMuestra {
 
 	@Override
 	EstadoDeLaMuestra siguienteEstado() {
-		return null;
+		return new EVerificada(this.getMuestra());
 	}
 
 	@Override

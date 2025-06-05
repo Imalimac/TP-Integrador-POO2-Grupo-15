@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="MuestraTest" project="camiDraft" tests="4" started="4" failures="0" errors="1" ignored="0">
+  <testsuite name="unq.cazaDeVinchucas.modelo.MuestraTest" time="1.18" displayname="MuestraTest" uniqueid="[engine:junit-vintage]/[runner:unq.cazaDeVinchucas.modelo.MuestraTest]">
+    <testcase name="agregarOpinion" classname="unq.cazaDeVinchucas.modelo.MuestraTest" time="1.152" displayname="agregarOpinion" uniqueid="[engine:junit-vintage]/[runner:unq.cazaDeVinchucas.modelo.MuestraTest]/[test:agregarOpinion(unq.cazaDeVinchucas.modelo.MuestraTest)]"/>
+    <testcase name="settersYGetters" classname="unq.cazaDeVinchucas.modelo.MuestraTest" time="0.004" displayname="settersYGetters" uniqueid="[engine:junit-vintage]/[runner:unq.cazaDeVinchucas.modelo.MuestraTest]/[test:settersYGetters(unq.cazaDeVinchucas.modelo.MuestraTest)]"/>
+    <testcase name="listaResultadosExpertos" classname="unq.cazaDeVinchucas.modelo.MuestraTest" time="0.019" displayname="listaResultadosExpertos" uniqueid="[engine:junit-vintage]/[runner:unq.cazaDeVinchucas.modelo.MuestraTest]/[test:listaResultadosExpertos(unq.cazaDeVinchucas.modelo.MuestraTest)]">
+      <error>java.lang.NullPointerException: Cannot invoke "String.equals(Object)" because the return value of "main.java.unq.cazaDeVinchucas.modelo.Opinion.getTipo()" is null&#13;
+	at main.java.unq.cazaDeVinchucas.modelo.Muestra.getListaOpinionesExpertasDeLaMuestra(Muestra.java:67)&#13;
+	at unq.cazaDeVinchucas.modelo.MuestraTest.listaResultadosExpertos(MuestraTest.java:90)&#13;
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)&#13;
+&#13;
+</error>
+    </testcase>
+    <testcase name="listaResultados" classname="unq.cazaDeVinchucas.modelo.MuestraTest" time="0.004" displayname="listaResultados" uniqueid="[engine:junit-vintage]/[runner:unq.cazaDeVinchucas.modelo.MuestraTest]/[test:listaResultados(unq.cazaDeVinchucas.modelo.MuestraTest)]"/>
+  </testsuite>
+</testrun>

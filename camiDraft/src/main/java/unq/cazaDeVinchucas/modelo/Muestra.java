@@ -2,6 +2,7 @@ package main.java.unq.cazaDeVinchucas.modelo;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class Muestra {
@@ -10,7 +11,7 @@ public class Muestra {
 	public File fotoDeLaMuestra; 
 	public Ubicacion ubicacionDeLaMuestra;
 	private EstadoDeLaMuestra estadoDeLaMuestra = new ENormal(this);
-	public ArrayList <Opinion> opinionesDeLaMuestra = new ArrayList <Opinion>();
+	public List<Opinion> opinionesDeLaMuestra = new ArrayList<Opinion>();
 	
 	//Constructor de la muestra:
 	public Muestra(Usuario usuarioDueñoDeLaMuestra, File fotoDeLaMuestra, Ubicacion ubicacionDeLaMuestra,
@@ -29,7 +30,7 @@ public class Muestra {
 			this.estadoDeLaMuestra.corroborarEstado();
 	}
 	
-	public ArrayList<Opinion> getOpinionesDeLaMuestra() {
+	public List<Opinion> getOpinionesDeLaMuestra() {
 		return this.opinionesDeLaMuestra;
 	}
 		
@@ -49,9 +50,8 @@ public class Muestra {
 		this.estadoDeLaMuestra = estadoDeLaMuestra;
 	}
 
-
-	public ArrayList <String> getListaDeResultadosDeOpinionDeUnaLista(ArrayList <Opinion> unaLista) {
-		final ArrayList <String> listaDeOpiniones = new ArrayList <String>();
+	public List<String> getListaDeResultadosDeOpinionDeUnaLista(List<Opinion> unaLista) {
+		final List<String> listaDeOpiniones = new ArrayList<String>();
 		
 		for (Opinion opinion : unaLista) {
 			listaDeOpiniones.add(opinion.getOpinion());
@@ -60,8 +60,8 @@ public class Muestra {
 		return listaDeOpiniones;
 	}
 	
-	public ArrayList<Opinion> getListaOpinionesExpertasDeLaMuestra() {
-		ArrayList <Opinion> listaDeOpinionesExpertas = new ArrayList <Opinion>();
+	public List<Opinion> getListaOpinionesExpertasDeLaMuestra() {
+		List<Opinion> listaDeOpinionesExpertas = new ArrayList<Opinion>();
 		
 		for (Opinion opinion : this.opinionesDeLaMuestra) {
 			if(opinion.getTipo().equals("Experto")) {

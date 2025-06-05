@@ -1,6 +1,6 @@
 package main.java.unq.cazaDeVinchucas.modelo;
 
-import java.util.ArrayList;
+import java.util.List;
 import main.java.unq.cazaDeVinchucas.utilidades.BuscadorDeElementosDeUnaLista;
 
 public class ENormal extends EstadoDeLaMuestra {
@@ -10,9 +10,9 @@ public class ENormal extends EstadoDeLaMuestra {
 	}
 
 	@Override
-	String resultadoFinal() {
+	public String resultadoFinal() {
 		final BuscadorDeElementosDeUnaLista<String> buscador = new BuscadorDeElementosDeUnaLista<String>();
-		ArrayList<String> resultadosDeOpinion = this.getMuestra().getListaDeResultadosDeOpinionDeUnaLista(this.getMuestra().getOpinionesDeLaMuestra());
+		List<String> resultadosDeOpinion = this.getMuestra().getListaDeResultadosDeOpinionDeUnaLista(this.getMuestra().getOpinionesDeLaMuestra());
 		
 		if(buscador.hayUnUnicoElementoConFrecuenciaMaxima(resultadosDeOpinion)) {
 			return buscador.encontrarElementoMasComun(resultadosDeOpinion);

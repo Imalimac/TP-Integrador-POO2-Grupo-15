@@ -1,6 +1,5 @@
 package main.java.unq.cazaDeVinchucas.modelo;
 
-
 public abstract class EstadoDeLaMuestra {
 	private Muestra muestra;
 
