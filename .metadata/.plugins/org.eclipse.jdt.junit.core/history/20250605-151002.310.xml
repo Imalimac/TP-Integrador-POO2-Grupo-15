@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><testrun name="MuestraTest" project="camiDraft" tests="3" started="3" failures="0" errors="0" ignored="0">
-  <testsuite name="unq.cazaDeVinchucas.modelo.MuestraTest" time="1.261" displayname="MuestraTest" uniqueid="[engine:junit-vintage]/[runner:unq.cazaDeVinchucas.modelo.MuestraTest]">
-    <testcase name="agregarOpinion" classname="unq.cazaDeVinchucas.modelo.MuestraTest" time="1.249" displayname="agregarOpinion" uniqueid="[engine:junit-vintage]/[runner:unq.cazaDeVinchucas.modelo.MuestraTest]/[test:agregarOpinion(unq.cazaDeVinchucas.modelo.MuestraTest)]"/>
-    <testcase name="settersYGetters" classname="unq.cazaDeVinchucas.modelo.MuestraTest" time="0.004" displayname="settersYGetters" uniqueid="[engine:junit-vintage]/[runner:unq.cazaDeVinchucas.modelo.MuestraTest]/[test:settersYGetters(unq.cazaDeVinchucas.modelo.MuestraTest)]"/>
-    <testcase name="listaResultados" classname="unq.cazaDeVinchucas.modelo.MuestraTest" time="0.006" displayname="listaResultados" uniqueid="[engine:junit-vintage]/[runner:unq.cazaDeVinchucas.modelo.MuestraTest]/[test:listaResultados(unq.cazaDeVinchucas.modelo.MuestraTest)]"/>
-  </testsuite>
-</testrun>

@@ -1,0 +1,24 @@
+# Archivos de compilación
+*.class
+
+# Carpetas de compilación comunes
+/bin/
+/build/
+
+# Configuración específica de Eclipse
+.metadata/
+.project
+.classpath
+.settings/
+
+# Archivos temporales y de backup
+*.tmp
+*.bak
+*.swp
+*~
+*.log
+
+# Archivos del sistema operativo (Mac y Windows)
+.DS_Store
+Thumbs.db
+

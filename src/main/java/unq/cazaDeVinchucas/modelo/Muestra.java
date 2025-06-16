@@ -71,7 +71,6 @@ public class Muestra {
 		return listaDeOpinionesExpertas;
 	}
 
-	
 	//Funcionalidad de la muestra:
 	
 	public String resultadoFinal() {
