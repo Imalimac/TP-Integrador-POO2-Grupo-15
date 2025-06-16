@@ -1,8 +1,11 @@
-package main.java.unq.cazaDeVinchucas.modelo;
+package main.java.unq.cazaDeVinchucas.modelo.muestra;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import main.java.unq.cazaDeVinchucas.modelo.Ubicacion;
+import main.java.unq.cazaDeVinchucas.modelo.usuario.Usuario;
 
 
 public class Muestra {
@@ -10,12 +13,12 @@ public class Muestra {
 	public Usuario usuarioDueñoDeLaMuestra;
 	public File fotoDeLaMuestra; 
 	public Ubicacion ubicacionDeLaMuestra;
-	private EstadoDeLaMuestra estadoDeLaMuestra = new ENormal(this);
+	private EstadoMuestra estadoDeLaMuestra = new EstadoNormal(this);
 	public List<Opinion> opinionesDeLaMuestra = new ArrayList<Opinion>();
 	
 	//Constructor de la muestra:
 	public Muestra(Usuario usuarioDueñoDeLaMuestra, File fotoDeLaMuestra, Ubicacion ubicacionDeLaMuestra,
-			EstadoDeLaMuestra estadoDeLaMuestra) {
+			EstadoMuestra estadoDeLaMuestra) {
 		super();
 		this.usuarioDueñoDeLaMuestra = usuarioDueñoDeLaMuestra;
 		this.fotoDeLaMuestra = fotoDeLaMuestra;
@@ -42,11 +45,11 @@ public class Muestra {
 		return this.ubicacionDeLaMuestra;
 	}
 	
-	public EstadoDeLaMuestra getEstadoDeLaMuestra() {
+	public EstadoMuestra getEstadoDeLaMuestra() {
 		return this.estadoDeLaMuestra;
 	}
 
-	public void setEstadoDeLaMuestra(EstadoDeLaMuestra estadoDeLaMuestra) {
+	public void setEstadoDeLaMuestra(EstadoMuestra estadoDeLaMuestra) {
 		this.estadoDeLaMuestra = estadoDeLaMuestra;
 	}
 

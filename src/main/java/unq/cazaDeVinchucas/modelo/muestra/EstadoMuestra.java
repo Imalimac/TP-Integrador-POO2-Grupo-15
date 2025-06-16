@@ -1,10 +1,10 @@
-package main.java.unq.cazaDeVinchucas.modelo;
+package main.java.unq.cazaDeVinchucas.modelo.muestra;
 
-public abstract class EstadoDeLaMuestra {
+public abstract class EstadoMuestra {
 	private Muestra muestra;
 
 	
-	public EstadoDeLaMuestra(Muestra muestra) {
+	public EstadoMuestra(Muestra muestra) {
 		this.setMuestra(muestra);
 	}
 
@@ -28,9 +28,9 @@ public abstract class EstadoDeLaMuestra {
 	}
 
 	abstract String resultadoFinal();
-	abstract EstadoDeLaMuestra siguienteEstado();
+	abstract EstadoMuestra siguienteEstado();
 	abstract boolean condicionDeCambioDeEstado();
-	abstract String getEstado();
+	public abstract String getEstado();
 	
 
 }

@@ -1,11 +1,12 @@
-package main.java.unq.cazaDeVinchucas.modelo;
+package main.java.unq.cazaDeVinchucas.modelo.muestra;
 
 import java.util.List;
+
 import main.java.unq.cazaDeVinchucas.utilidades.BuscadorDeElementosDeUnaLista;
 
-public class EConOpinionExperta extends EstadoDeLaMuestra {
+public class EstadoConOpinionExperta extends EstadoMuestra {
 
-	public EConOpinionExperta(Muestra muestra) {
+	public EstadoConOpinionExperta(Muestra muestra) {
 		super(muestra);
 	}
 
@@ -22,8 +23,8 @@ public class EConOpinionExperta extends EstadoDeLaMuestra {
 	}
 
 	@Override
-	EstadoDeLaMuestra siguienteEstado() {
-		return new EVerificada(this.getMuestra());
+	EstadoMuestra siguienteEstado() {
+		return new EstadoVerificada(this.getMuestra());
 	}
 
 	@Override
@@ -34,6 +35,7 @@ public class EConOpinionExperta extends EstadoDeLaMuestra {
 	}
 	
 	@Override
+	public
 	String getEstado() {
 		return "ConOpinionExperta";
 	}

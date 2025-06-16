@@ -1,6 +1,8 @@
 package main.java.unq.cazaDeVinchucas.modelo;
 import java.util.ArrayList;
 
+import main.java.unq.cazaDeVinchucas.modelo.muestra.Muestra;
+
 public class ZonaDeCobertura {
 	private Ubicacion epicento;
 	private Integer radio; //Esta distancia representa KM.

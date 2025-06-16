@@ -1,4 +1,4 @@
-package main.java.unq.cazaDeVinchucas.modelo;
+package main.java.unq.cazaDeVinchucas.modelo.usuario;
 
 public class Especialista extends Usuario{
 

@@ -1,11 +1,12 @@
-package main.java.unq.cazaDeVinchucas.modelo;
+package main.java.unq.cazaDeVinchucas.modelo.muestra;
 
 import java.util.List;
+
 import main.java.unq.cazaDeVinchucas.utilidades.BuscadorDeElementosDeUnaLista;
 
-public class ENormal extends EstadoDeLaMuestra {
+public class EstadoNormal extends EstadoMuestra {
 
-	public ENormal(Muestra muestra) {
+	public EstadoNormal(Muestra muestra) {
 		super(muestra);
 	}
 
@@ -22,8 +23,8 @@ public class ENormal extends EstadoDeLaMuestra {
 	}
 
 	@Override
-	public EstadoDeLaMuestra siguienteEstado() {
-		return new EConOpinionExperta(this.getMuestra());
+	public EstadoMuestra siguienteEstado() {
+		return new EstadoConOpinionExperta(this.getMuestra());
 	}
 
 	@Override
@@ -32,6 +33,7 @@ public class ENormal extends EstadoDeLaMuestra {
 	}
 
 	@Override
+	public
 	String getEstado() {
 		return "Normal";
 	}

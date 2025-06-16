@@ -1,8 +1,8 @@
-package main.java.unq.cazaDeVinchucas.modelo;
+package main.java.unq.cazaDeVinchucas.modelo.muestra;
 
-public class EVerificada extends EstadoDeLaMuestra {
+public class EstadoVerificada extends EstadoMuestra {
 	
-	public EVerificada(Muestra muestra) {
+	public EstadoVerificada(Muestra muestra) {
 		super(muestra);
 	}
 
@@ -12,11 +12,12 @@ public class EVerificada extends EstadoDeLaMuestra {
 	}
 
 	@Override
-	EstadoDeLaMuestra siguienteEstado() {
+	EstadoMuestra siguienteEstado() {
 		return null;
 	}
 
 	@Override
+	public
 	String getEstado() {
 		return "Verificada";
 	}

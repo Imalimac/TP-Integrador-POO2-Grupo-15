@@ -9,12 +9,13 @@ import java.util.ArrayList;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
-import main.java.unq.cazaDeVinchucas.modelo.EConOpinionExperta;
-import main.java.unq.cazaDeVinchucas.modelo.ENormal;
-import main.java.unq.cazaDeVinchucas.modelo.Muestra;
-import main.java.unq.cazaDeVinchucas.modelo.Opinion;
+
 import main.java.unq.cazaDeVinchucas.modelo.Ubicacion;
-import main.java.unq.cazaDeVinchucas.modelo.Usuario;
+import main.java.unq.cazaDeVinchucas.modelo.muestra.EstadoConOpinionExperta;
+import main.java.unq.cazaDeVinchucas.modelo.muestra.EstadoNormal;
+import main.java.unq.cazaDeVinchucas.modelo.muestra.Muestra;
+import main.java.unq.cazaDeVinchucas.modelo.muestra.Opinion;
+import main.java.unq.cazaDeVinchucas.modelo.usuario.Usuario;
 
 public class MuestraTest {
 	
@@ -24,8 +25,8 @@ public class MuestraTest {
 	Usuario usuarioMock;
 	File fileMock;
 	Ubicacion ubicacionMock;
-	ENormal eNormalMock;
-	EConOpinionExperta eExpertoMock;
+	EstadoNormal eNormalMock;
+	EstadoConOpinionExperta eExpertoMock;
 	
 	Muestra muestra;
 	List<String> listaOpinionesString;
@@ -43,8 +44,8 @@ public class MuestraTest {
 		usuarioMock = mock(Usuario.class);
 		fileMock = mock(File.class);
 		ubicacionMock  = mock(Ubicacion.class);
-		eNormalMock = mock(ENormal.class);
-		eExpertoMock = mock(EConOpinionExperta.class);
+		eNormalMock = mock(EstadoNormal.class);
+		eExpertoMock = mock(EstadoConOpinionExperta.class);
 		when(eNormalMock.resultadoFinal()).thenReturn("En Proceso");
 		
 		muestra = new Muestra(usuarioMock, fileMock, ubicacionMock, eNormalMock);

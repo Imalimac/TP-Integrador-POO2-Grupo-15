@@ -1,6 +1,8 @@
-package main.java.unq.cazaDeVinchucas.modelo;
-
+package main.java.unq.cazaDeVinchucas.modelo.usuario;
 import java.util.ArrayList;
+
+import main.java.unq.cazaDeVinchucas.modelo.muestra.Muestra;
+import main.java.unq.cazaDeVinchucas.modelo.muestra.Opinion;
 
 public abstract class Usuario {
 

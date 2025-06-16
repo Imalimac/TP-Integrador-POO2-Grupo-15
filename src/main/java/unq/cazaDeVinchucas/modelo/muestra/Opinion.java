@@ -1,4 +1,6 @@
-package main.java.unq.cazaDeVinchucas.modelo;
+package main.java.unq.cazaDeVinchucas.modelo.muestra;
+
+import main.java.unq.cazaDeVinchucas.modelo.usuario.Usuario;
 
 public class Opinion {
 	public Usuario usuario;
