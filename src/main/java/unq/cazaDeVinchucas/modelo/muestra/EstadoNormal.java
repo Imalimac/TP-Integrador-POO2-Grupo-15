@@ -13,7 +13,7 @@ public class EstadoNormal extends EstadoMuestra {
 	@Override
 	public String resultadoFinal() {
 		final BuscadorDeElementosDeUnaLista<String> buscador = new BuscadorDeElementosDeUnaLista<String>();
-		List<String> resultadosDeOpinion = this.getMuestra().getListaDeResultadosDeOpinionDeUnaLista(this.getMuestra().getOpinionesDeLaMuestra());
+		List<String> resultadosDeOpinion = this.getMuestra().getListaDeResultadosDeOpinionDeLaMuestra();
 		
 		if(buscador.hayUnUnicoElementoConFrecuenciaMaxima(resultadosDeOpinion)) {
 			return buscador.encontrarElementoMasComun(resultadosDeOpinion);
@@ -29,15 +29,16 @@ public class EstadoNormal extends EstadoMuestra {
 
 	@Override
 	public boolean condicionDeCambioDeEstado() {
-		return !this.getMuestra().getListaDeResultadosDeOpinionDeUnaLista(this.getMuestra().getOpinionesDeLaMuestra()).contains("Experto");
+		return !this.getMuestra().getListaOpinionesExpertasDeLaMuestra().isEmpty();
 	}
 
 	@Override
-	public
-	String getEstado() {
+	public String getEstado() {
 		return "Normal";
 	}
 	
-	
-	
+	@Override
+	public void agregarO(Opinion opinionAAgregar) {
+		this.getMuestra().agregarO(opinionAAgregar);
+	}
 }

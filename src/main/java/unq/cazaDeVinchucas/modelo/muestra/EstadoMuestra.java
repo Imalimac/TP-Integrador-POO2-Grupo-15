@@ -17,20 +17,18 @@ public abstract class EstadoMuestra {
 	}
 	
 	public void cambiarEstado() {
-		this.muestra.setEstadoDeLaMuestra(this.siguienteEstado());	
+		this.getMuestra().setEstadoDeLaMuestra(this.siguienteEstado());	
 	}
-
 
 	public void corroborarEstado() {
 		if(this.condicionDeCambioDeEstado()) {
 			this.getMuestra().setEstadoDeLaMuestra(this.siguienteEstado());
-		};
+		}
 	}
-
-	abstract String resultadoFinal();
-	abstract EstadoMuestra siguienteEstado();
-	abstract boolean condicionDeCambioDeEstado();
-	public abstract String getEstado();
 	
-
+	protected abstract void agregarO(Opinion opinionAAgregar);
+	public abstract String resultadoFinal();
+	protected abstract EstadoMuestra siguienteEstado();
+	public abstract boolean condicionDeCambioDeEstado();
+	public abstract String getEstado();
 }

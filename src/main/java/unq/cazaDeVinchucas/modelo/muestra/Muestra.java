@@ -19,7 +19,6 @@ public class Muestra {
 	//Constructor de la muestra:
 	public Muestra(Usuario usuarioDueñoDeLaMuestra, File fotoDeLaMuestra, Ubicacion ubicacionDeLaMuestra,
 			EstadoMuestra estadoDeLaMuestra) {
-		super();
 		this.usuarioDueñoDeLaMuestra = usuarioDueñoDeLaMuestra;
 		this.fotoDeLaMuestra = fotoDeLaMuestra;
 		this.ubicacionDeLaMuestra = ubicacionDeLaMuestra;
@@ -27,10 +26,13 @@ public class Muestra {
 	}
 	
 	//Getters y Setters de la muestra:
-	
 	public void agregarOpinion(Opinion opinionAAgregar) {
-			this.opinionesDeLaMuestra.add(opinionAAgregar);
-			this.estadoDeLaMuestra.corroborarEstado();
+		this.estadoDeLaMuestra.agregarO(opinionAAgregar);
+		this.estadoDeLaMuestra.corroborarEstado();
+	}
+	
+	public void agregarO(Opinion opinionAAgregar) {
+		this.opinionesDeLaMuestra.add(opinionAAgregar);
 	}
 	
 	public List<Opinion> getOpinionesDeLaMuestra() {
@@ -53,34 +55,22 @@ public class Muestra {
 		this.estadoDeLaMuestra = estadoDeLaMuestra;
 	}
 
-	public List<String> getListaDeResultadosDeOpinionDeUnaLista(List<Opinion> unaLista) {
-		final List<String> listaDeOpiniones = new ArrayList<String>();
-		
-		for (Opinion opinion : unaLista) {
-			listaDeOpiniones.add(opinion.getOpinion());
-		}
-		
-		return listaDeOpiniones;
+	public List<String> getListaDeResultadosDeOpinionDeLaMuestra() {
+		return opinionesDeLaMuestra.stream().map(o -> o.getOpinion()).toList();
 	}
 	
 	public List<Opinion> getListaOpinionesExpertasDeLaMuestra() {
-		List<Opinion> listaDeOpinionesExpertas = new ArrayList<Opinion>();
-		
-		for (Opinion opinion : this.opinionesDeLaMuestra) {
-			if(opinion.getTipo().equals("Experto")) {
-				listaDeOpinionesExpertas.add(opinion);
-			}
-		}
-		return listaDeOpinionesExpertas;
+		return opinionesDeLaMuestra.stream().filter(o -> o.getTipo().equals("Experto")).toList();
+	}
+	
+	public List<String> getListaDeResultadosExpertosDeLaMuestra() {
+		return this.getListaOpinionesExpertasDeLaMuestra().stream().map(o -> o.getOpinion()).toList();
 	}
 
 	//Funcionalidad de la muestra:
-	
 	public String resultadoFinal() {
 		return this.estadoDeLaMuestra.resultadoFinal();
 	}
-
-	
 }
 
 

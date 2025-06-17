@@ -9,7 +9,6 @@ public class Opinion {
 	final String tipo;
 	
 	public Opinion(Usuario usuario, Muestra muestra, String opinion) {
-		super();
 		this.usuario = usuario;
 		this.muestra = muestra;
 		this.opinion = opinion;
@@ -31,5 +30,4 @@ public class Opinion {
 	public String getTipo() {
 		return tipo;
 	}
-	
 }

@@ -1,5 +1,9 @@
 package main.java.unq.cazaDeVinchucas.modelo.muestra;
 
+import java.util.List;
+
+import main.java.unq.cazaDeVinchucas.utilidades.BuscadorDeElementosDeUnaLista;
+
 public class EstadoVerificada extends EstadoMuestra {
 	
 	public EstadoVerificada(Muestra muestra) {
@@ -7,25 +11,30 @@ public class EstadoVerificada extends EstadoMuestra {
 	}
 
 	@Override
-	String resultadoFinal() {
+	public String resultadoFinal() {
+		List<String> listaDeResultadosOpinionesExpertas = this.getMuestra().getListaDeResultadosExpertosDeLaMuestra();
+		BuscadorDeElementosDeUnaLista <String> buscador = new BuscadorDeElementosDeUnaLista<String>();
+		
+		return buscador.encontrarElementoMasComun(listaDeResultadosOpinionesExpertas);
+	}
+
+	@Override
+	public EstadoMuestra siguienteEstado() {
 		return null;
 	}
 
 	@Override
-	EstadoMuestra siguienteEstado() {
-		return null;
-	}
-
-	@Override
-	public
-	String getEstado() {
+	public String getEstado() {
 		return "Verificada";
 	}
 
 	@Override
-	boolean condicionDeCambioDeEstado() {
+	public boolean condicionDeCambioDeEstado() {
 		return false;
 	}
-	
-	
+
+	@Override
+	public void agregarO(Opinion opinionAAgregar) {
+		System.out.println("La muestra ya está verificada. No se aceptan nuevas opiniones.");
+	}
 }
