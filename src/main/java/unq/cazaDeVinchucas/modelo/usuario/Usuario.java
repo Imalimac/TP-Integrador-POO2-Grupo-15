@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import main.java.unq.cazaDeVinchucas.modelo.muestra.Muestra;
 import main.java.unq.cazaDeVinchucas.modelo.muestra.Opinion;
 
-public abstract class Usuario {
+public class Usuario {
 
 	private Integer cantidadDeEnvios;
 	private Integer cantidadDeRevisiones;
@@ -47,5 +47,7 @@ public abstract class Usuario {
 		}
 	}
 	
-	abstract boolean cumpleCondicionDeExperto(); 
+	public boolean cumpleCondicionDeExperto() {
+		return false;
+	} 
 }

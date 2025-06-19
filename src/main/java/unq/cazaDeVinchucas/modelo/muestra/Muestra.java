@@ -1,6 +1,7 @@
 package main.java.unq.cazaDeVinchucas.modelo.muestra;
 
 import java.io.File;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +14,7 @@ public class Muestra {
 	public Usuario usuarioDueñoDeLaMuestra;
 	public File fotoDeLaMuestra; 
 	public Ubicacion ubicacionDeLaMuestra;
+	public LocalDate fechaDeCreacion; 
 	private EstadoMuestra estadoDeLaMuestra = new EstadoNormal(this);
 	public List<Opinion> opinionesDeLaMuestra = new ArrayList<Opinion>();
 	
@@ -22,7 +24,15 @@ public class Muestra {
 		this.usuarioDueñoDeLaMuestra = usuarioDueñoDeLaMuestra;
 		this.fotoDeLaMuestra = fotoDeLaMuestra;
 		this.ubicacionDeLaMuestra = ubicacionDeLaMuestra;
+		this.fechaDeCreacion = LocalDate.now();
 		this.estadoDeLaMuestra = estadoDeLaMuestra;
+	}
+	
+	public Muestra(Usuario usuarioDueñoDeLaMuestra, File fotoDeLaMuestra, Ubicacion ubicacionDeLaMuestra) {
+		this.usuarioDueñoDeLaMuestra = usuarioDueñoDeLaMuestra;
+		this.fotoDeLaMuestra = fotoDeLaMuestra;
+		this.ubicacionDeLaMuestra = ubicacionDeLaMuestra;
+		this.fechaDeCreacion = LocalDate.now();
 	}
 	
 	//Getters y Setters de la muestra:
@@ -45,6 +55,10 @@ public class Muestra {
 
 	public Ubicacion getUbicacionDeLaMuestra() {
 		return this.ubicacionDeLaMuestra;
+	}
+	
+	public LocalDate getFechaDeCreacion() {
+		return this.fechaDeCreacion;
 	}
 	
 	public EstadoMuestra getEstadoDeLaMuestra() {
@@ -71,6 +85,8 @@ public class Muestra {
 	public String resultadoFinal() {
 		return this.estadoDeLaMuestra.resultadoFinal();
 	}
+
+
 }
 
 

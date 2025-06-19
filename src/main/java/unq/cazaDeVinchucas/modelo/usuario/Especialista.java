@@ -7,7 +7,7 @@ public class Especialista extends Usuario{
 	}
 
 	@Override
-	boolean cumpleCondicionDeExperto() {
+	public boolean cumpleCondicionDeExperto() {
 		return true;
 	}
 

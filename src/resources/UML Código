@@ -17,9 +17,6 @@ Usuario <-- UsuarioEspecialista
 Organizacion --> ManagerDeEventos
 Organizacion --> FuncionalidadExterna
 
-
-
-
 BuscadorDeMuestras <|-- FiltroPorFechaDeCreacionDeLaMuestra 
 BuscadorDeMuestras <|-- FiltroPorFechaDeCreacionDeLaMuestra 
 BuscadorDeMuestras <|-- FiltroPorFechaDeUltimaVotacionDeLaMuestra 
@@ -27,7 +24,6 @@ BuscadorDeMuestras <|-- FiltroPorTipoDeInsectoDeLaMuestra
 BuscadorDeMuestras <|-- FiltroPorNivelDeVerificacionDeLaMuestra 
 BuscadorDeMuestras <|-- FiltroAnd 
 BuscadorDeMuestras <|-- FiltroOr
-
 
 FiltroPorFechaDeCreacionDeLaMuestra <.. CriterioDeFiltracion
 FiltroPorFechaDeCreacionDeLaMuestra <.. CriterioDeFiltracion
@@ -110,37 +106,42 @@ Interface CriterioDeFiltracion{
 }
 
 Class BuscadorDeMuestras{
-  - muestras List <Muestra>;
- 
-  + filtrar(List <Muestra> muestras, CriterioDeFiltracion estrategia): List<Muestra>;
+	+ BuscadorDeMuestras();
+  	+ filtrar(List <Muestra> muestras, CriterioDeFiltracion estrategia): List<Muestra>;
 }
 
 Class FiltroPorFechaDeCreacionDeLaMuestra{
-  + cumpleCriterio(Muestra muestra): boolean;
+  	+ fecha: LocalDate;
+  	+ FiltroPorFechaDeCreacionDeLaMuestra(LocalDate fecha);
+  	+ cumpleCriterio(Muestra muestra): boolean;
 }
 
 Class FiltroPorFechaDeUltimaVotacionDeLaMuestra{
-  + cumpleCriterio(Muestra muestra): boolean;
+	+ fecha: LocalDate;
+	+ FiltroPorFechaDeUltimaVotacionDeLaMuestra(LocalDate fecha);
+  	+ cumpleCriterio(Muestra muestra): boolean;
 }
 
 Class FiltroPorTipoDeInsectoDeLaMuestra{
-  + cumpleCriterio(Muestra muestra): boolean;
+  	+ tipoDeInsecto = String;
+  	+ FiltroPorTipoDeInsectoDeLaMuestra(String tipoDeInsecto);
+  	+ cumpleCriterio(Muestra muestra): boolean;
 }
 
 Class FiltroPorNivelDeVerificacionDeLaMuestra{
-  + cumpleCriterio(Muestra muestra): boolean;
+	- nivelDeVerificacion: String;
+	+ FiltroPorNivelDeVerificacionDeLaMuestra(String nivelDeVerificacion);
+	+ cumpleCriterio(Muestra muestra): boolean;
 }
 
 Class FiltroAnd{
   - List<CriterioDeFiltracion> estrategias;
-  
-  + filtroOR(List<CriterioDeFiltracion> estrategias): 
+  + filtroAnd(List<CriterioDeFiltracion> estrategias): 
   + cumpleCriterio(Muestra muestra): boolean;
 }
 
 Class FiltroOr{
   - List<CriterioDeFiltracion> estrategias;
-  
   + filtroOR(List<CriterioDeFiltracion> estrategias): 
   + cumpleCriterio(Muestra muestra): boolean;
 }
