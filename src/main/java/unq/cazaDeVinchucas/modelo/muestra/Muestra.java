@@ -8,9 +8,7 @@ import java.util.List;
 import main.java.unq.cazaDeVinchucas.modelo.Ubicacion;
 import main.java.unq.cazaDeVinchucas.modelo.usuario.Usuario;
 
-
 public class Muestra {
-	
 	public Usuario usuarioDueñoDeLaMuestra;
 	public File fotoDeLaMuestra; 
 	public Ubicacion ubicacionDeLaMuestra;
@@ -19,15 +17,6 @@ public class Muestra {
 	public List<Opinion> opinionesDeLaMuestra = new ArrayList<Opinion>();
 	
 	//Constructor de la muestra:
-	public Muestra(Usuario usuarioDueñoDeLaMuestra, File fotoDeLaMuestra, Ubicacion ubicacionDeLaMuestra,
-			EstadoMuestra estadoDeLaMuestra) {
-		this.usuarioDueñoDeLaMuestra = usuarioDueñoDeLaMuestra;
-		this.fotoDeLaMuestra = fotoDeLaMuestra;
-		this.ubicacionDeLaMuestra = ubicacionDeLaMuestra;
-		this.fechaDeCreacion = LocalDate.now();
-		this.estadoDeLaMuestra = estadoDeLaMuestra;
-	}
-	
 	public Muestra(Usuario usuarioDueñoDeLaMuestra, File fotoDeLaMuestra, Ubicacion ubicacionDeLaMuestra) {
 		this.usuarioDueñoDeLaMuestra = usuarioDueñoDeLaMuestra;
 		this.fotoDeLaMuestra = fotoDeLaMuestra;
@@ -80,13 +69,9 @@ public class Muestra {
 	public List<String> getListaDeResultadosExpertosDeLaMuestra() {
 		return this.getListaOpinionesExpertasDeLaMuestra().stream().map(o -> o.getOpinion()).toList();
 	}
-
+	
 	//Funcionalidad de la muestra:
 	public String resultadoFinal() {
 		return this.estadoDeLaMuestra.resultadoFinal();
 	}
-
-
 }
-
-

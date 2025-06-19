@@ -48,7 +48,7 @@ public class MuestraTest {
 		eExpertoMock = mock(EstadoConOpinionExperta.class);
 		when(eNormalMock.resultadoFinal()).thenReturn("En Proceso");
 		
-		muestra = new Muestra(usuarioMock, fileMock, ubicacionMock, eNormalMock);
+		muestra = new Muestra(usuarioMock, fileMock, ubicacionMock);
 		
 		listaOpinionesString = Arrays.asList("Vinchuca", "Vinchuca");
 		
@@ -57,6 +57,7 @@ public class MuestraTest {
 	
 	@Test
 	public void agregarOpinion() {
+		muestra.setEstadoDeLaMuestra(eNormalMock);
 		muestra.agregarOpinion(opinionMock);
 		
 		verify(eNormalMock).corroborarEstado();
@@ -72,6 +73,7 @@ public class MuestraTest {
 	
 	@Test
 	public void settersYGetters() {
+		muestra.setEstadoDeLaMuestra(eNormalMock);
 		assertEquals(fileMock, muestra.getFotoDeLaMuestra());
 		assertEquals(eNormalMock, muestra.getEstadoDeLaMuestra());
 		assertEquals(ubicacionMock, muestra.getUbicacionDeLaMuestra());
