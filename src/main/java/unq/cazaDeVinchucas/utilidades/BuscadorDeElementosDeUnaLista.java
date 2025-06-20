@@ -1,9 +1,9 @@
 package main.java.unq.cazaDeVinchucas.utilidades;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.*;
 
 public class BuscadorDeElementosDeUnaLista <T>{
 
@@ -15,7 +15,7 @@ public class BuscadorDeElementosDeUnaLista <T>{
 	//Funciones:
 	
 	//Encuentra el elemento mas comun de una lista.
-	public T encontrarElementoMasComun(ArrayList<T> lista) {
+	public T encontrarElementoMasComun(List<T> lista) {
 		// Map para contar la frecuencia
 		Map<T, Integer> frecuencia = new HashMap<>();
 			for (T elemento : lista) {
@@ -28,7 +28,7 @@ public class BuscadorDeElementosDeUnaLista <T>{
 	}
 
 	//Devuelve si hay un único elemento con una frecuencia máxima de apariciones.
-	public boolean hayUnUnicoElementoConFrecuenciaMaxima(ArrayList<T> lista) {
+	public boolean hayUnUnicoElementoConFrecuenciaMaxima(List<T> lista) {
 		// Paso 1: Contamos la frecuencia de cada elemento
 		Map<T, Integer> frecuencia = new HashMap<>();
 		for (T elemento : lista) {
