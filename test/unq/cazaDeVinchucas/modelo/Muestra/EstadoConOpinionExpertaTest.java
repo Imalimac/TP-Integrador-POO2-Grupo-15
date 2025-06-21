@@ -2,6 +2,7 @@ package unq.cazaDeVinchucas.modelo.Muestra;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
@@ -59,6 +60,16 @@ public class EstadoConOpinionExpertaTest {
 	public void siguienteEstado() {
 		EstadoMuestra estadoNuevo = estadoC.siguienteEstado();
 		assertEquals(estadoNuevo, estadoNuevo);
+	} 
+	
+	@Test
+	public void agregarOFalse() {
+		when(opinionMock.getTipo()).thenReturn("Normal");
+		verify(muestraMock, never()).agregarO(opinionMock);
+		assertThrows(RuntimeException.class, () -> {
+			estadoC.agregarO(opinionMock);
+        });
+		verify(opinionMock).getTipo();
 	}
 	
 	@Test
@@ -67,11 +78,6 @@ public class EstadoConOpinionExpertaTest {
 		verify(muestraMock).agregarO(opinionMock);
 	}
 	
-	@Test
-	public void agregarOFalse() {
-		when(opinionMock.getTipo()).thenReturn("Normal");
-		verify(muestraMock, never()).agregarO(opinionMock);
-	}
 	
 	@Test
 	public void condicionDeCambioDeEstadoTrue() {

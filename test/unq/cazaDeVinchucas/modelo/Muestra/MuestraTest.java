@@ -5,6 +5,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import java.io.File;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.Before;
@@ -73,7 +74,8 @@ public class MuestraTest {
 	
 	@Test
 	public void settersYGetters() {
-		muestra.setEstadoDeLaMuestra(eNormalMock);
+		muestra.setEstadoDeLaMuestra(eNormalMock); 
+		assertEquals(LocalDate.now(), muestra.getFechaDeCreacion());
 		assertEquals(fileMock, muestra.getFotoDeLaMuestra());
 		assertEquals(eNormalMock, muestra.getEstadoDeLaMuestra());
 		assertEquals(ubicacionMock, muestra.getUbicacionDeLaMuestra());

@@ -41,7 +41,6 @@ Class Muestra{
 - estadoDeLaMuestra: EstadoMuestra;
 
 + resultadoActual(): Opinion;
-
 }
 
 Class Usuario{
@@ -49,7 +48,6 @@ Class Usuario{
 
 + enviar(Muestra): void;
 + opinar(Muestra): void;
-
 }
 
 Class Ubicacion {
@@ -59,7 +57,6 @@ Class Ubicacion {
 +distanciaEntre(Ubicacion primerUbicacion, Ubicacion segundaUbicacion): double;
 +ubicacionA_distacia(List<Ubicacion> ubicaciones, double distacia): List <Ubicacion>;
 +muestrasA_distaciaDeMuestra_(double distancia, Muestra muestra): List <Muestra>;
-
 }
 
 Class Organizacion {
@@ -70,7 +67,6 @@ Class Organizacion {
 -funcionalidadExternaMuestra: FuncionalidadExterna;
 
 + Organizacion(Ubicacion ubicacion, String tipo, Integer cantidadDePersonal, FuncionalidadExterna funcionalidadExternaValidacion, FuncionalidadExterna funcionalidadExternaMuestra)
-
 }
 
 Interface FuncionalidadExterna{
@@ -87,9 +83,7 @@ Class ZonaDeCobertura {
 + area(): double;
 + muestras(): List<Muestra>;
 + zonasSolapadas(): List<ZonaDeCobertura>;
-
 }
-
 
 Class ManagerDeEventos{
 - suscriptores: HashMap <Organizacion suscriptor, ZonaDeCobertura zona>;
@@ -98,7 +92,6 @@ Class ManagerDeEventos{
 + notificarValidacionDeMuestra(Muestra muestra): void;
 + agregarSuscriptor(Organizacion suscriptor, ZonaDeCobertura zona ): void;
 + eliminarSucriptor(Organizacion suscriptor, ZonaDeCobertura zona): void;
-
 }
 
 Interface CriterioDeFiltracion{
@@ -136,15 +129,49 @@ Class FiltroPorNivelDeVerificacionDeLaMuestra{
 
 Class FiltroAnd{
   - List<CriterioDeFiltracion> estrategias;
-  + filtroAnd(List<CriterioDeFiltracion> estrategias): 
+  + filtroAnd(List<CriterioDeFiltracion> estrategias); 
   + cumpleCriterio(Muestra muestra): boolean;
 }
 
 Class FiltroOr{
   - List<CriterioDeFiltracion> estrategias;
-  + filtroOR(List<CriterioDeFiltracion> estrategias): 
+  + filtroOR(List<CriterioDeFiltracion> estrategias); 
   + cumpleCriterio(Muestra muestra): boolean;
 }
 
+Class EstadoMuestra{
+  - muestra: Muestra;
+  + cambiarEstado(): void;
+  + corroborarEstado(): void;
+  + agregarO(Opinion opinionAAgregar): void;
+  + resultadoFinal(): String;
+  + siguienteEstado(): EstadoMuestra;
+  + condicionDeCambioDeEstado(): boolean;
+  + getEstado(): String;
+}
+
+Class EstadoNormal{
+  + resultadoFinal(): String;
+  + siguienteEstado(): EstadoMuestra;
+  + condicionDeCambioDeEstado(): boolean;
+  + getEstado(): String;
+  + agregarO(Opinion opinionAAgregar): void;
+}
+
+Class EstadoConOpinionExperta{
+  + resultadoFinal(): String;
+  + siguienteEstado(): EstadoMuestra;
+  + condicionDeCambioDeEstado(): boolean;
+  + getEstado(): String;
+  + agregarO(Opinion opinionAAgregar): void;
+}
+
+Class EstadoVerificada{
+  + resultadoFinal(): String;
+  + siguienteEstado(): EstadoMuestra;
+  + condicionDeCambioDeEstado(): boolean;
+  + getEstado(): String;
+  + agregarO(Opinion opinionAAgregar): void;
+}
 
 @enduml

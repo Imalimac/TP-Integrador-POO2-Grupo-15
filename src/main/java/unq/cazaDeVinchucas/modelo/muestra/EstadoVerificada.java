@@ -24,13 +24,13 @@ public class EstadoVerificada extends EstadoMuestra {
 	}
 
 	@Override
-	public String getEstado() {
-		return "Verificada";
-	}
-
-	@Override
 	public boolean condicionDeCambioDeEstado() {
 		return false;
+	}
+	
+	@Override
+	public String getEstado() {
+		return "Verificada";
 	}
 
 	@Override

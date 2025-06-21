@@ -39,7 +39,7 @@ public class EstadoNormalTest {
 	@Test
 	public void resultadoFinalUnElemento() {
 		assertEquals("Vinchuca", estadoN.resultadoFinal());
-	}
+	} 
 	
 	@Test
 	public void resultadoFinalNoDefinido() {
@@ -68,9 +68,17 @@ public class EstadoNormalTest {
 	}
 	
 	@Test
+	public void cambiarEstadoESTADOMUESTRA() {
+		estadoN.cambiarEstado();
+		when(muestraMock.getEstadoDeLaMuestra()).thenReturn(estadoN);
+		
+		assertEquals(estadoN, muestraMock.getEstadoDeLaMuestra());	
+	}
+	
+	@Test
 	public void agregarO() {
 		estadoN.agregarO(opinionMock);
-		
+
 		verify(muestraMock).agregarO(opinionMock);
 	}
 	

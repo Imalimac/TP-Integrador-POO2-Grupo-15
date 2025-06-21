@@ -49,7 +49,7 @@ public class EstadoConOpinionExperta extends EstadoMuestra {
 		if(opinionAAgregar.getTipo().equals("Experto")) {
 			this.getMuestra().agregarO(opinionAAgregar);
 		} else {
-			System.out.println("No se puede agregar una nueva opinion porque no es una opinion experta.");
+			throw new RuntimeException("No se puede agregar una nueva opinion porque no es una opinion experta.");
 		}
 	}
 }

@@ -28,7 +28,7 @@ public abstract class EstadoMuestra {
 	
 	public abstract void agregarO(Opinion opinionAAgregar);
 	public abstract String resultadoFinal();
-	protected abstract EstadoMuestra siguienteEstado();
+	public abstract EstadoMuestra siguienteEstado();
 	public abstract boolean condicionDeCambioDeEstado();
 	public abstract String getEstado();
 }

@@ -20,30 +20,31 @@ import main.java.unq.cazaDeVinchucas.modelo.muestra.Muestra;
 public class EstadoMuestraTest {
 	
 	EstadoMuestra estadoMMock;
+	EstadoMuestra estadoMMock2;
 	Muestra muestraMock;
 	
 	@Before
 	public void setUp() {
 		muestraMock = mock(Muestra.class);
 		
+		estadoMMock2 = mock(EstadoMuestra.class);
 		estadoMMock = mock(EstadoMuestra.class);
 		when(estadoMMock.getMuestra()).thenReturn(muestraMock);
 		when(estadoMMock.condicionDeCambioDeEstado()).thenReturn(true);
+		when(estadoMMock.siguienteEstado()).thenReturn(estadoMMock2);
 		
 		doAnswer(invocation -> {
-			muestraMock.setEstadoDeLaMuestra(estadoMMock);
-			return null;
+			estadoMMock.getMuestra().setEstadoDeLaMuestra(estadoMMock.siguienteEstado());
+			return null; 
 			}).when(estadoMMock).cambiarEstado();
 		
 		doAnswer(invocation -> {
 			if(estadoMMock.condicionDeCambioDeEstado()) {
-				muestraMock.setEstadoDeLaMuestra(estadoMMock);
+				muestraMock.setEstadoDeLaMuestra(estadoMMock2);
 			}
 			return null;
 			}).when(estadoMMock).corroborarEstado();
 	}
-	
-	
 	
 	@Test
 	public void agregarOpinion() {
@@ -54,14 +55,16 @@ public class EstadoMuestraTest {
 	public void cambiarEstado() {
 		estadoMMock.cambiarEstado();
 		
-		verify(muestraMock).setEstadoDeLaMuestra(estadoMMock);
+		verify(muestraMock).setEstadoDeLaMuestra(estadoMMock2);
+		verify(estadoMMock).siguienteEstado(); 
+		verify(estadoMMock).getMuestra();
 	}
 	
 	@Test 
-	public void corroborarEstadoTrue() {
+	public void corroborarEstadoTrue() { 
 		estadoMMock.corroborarEstado();
 		
-		verify(muestraMock).setEstadoDeLaMuestra(estadoMMock);
+		verify(muestraMock).setEstadoDeLaMuestra(estadoMMock2);
 	}
 	
 	@Test
