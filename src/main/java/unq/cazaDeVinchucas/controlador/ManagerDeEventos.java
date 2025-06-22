@@ -1,25 +1,30 @@
 package main.java.unq.cazaDeVinchucas.controlador;
 import java.util.ArrayList;
 //import java.util.HashMap;
+import java.util.List;
 
+import main.java.unq.cazaDeVinchucas.modelo.ZonaDeCobertura;
 import main.java.unq.cazaDeVinchucas.modelo.muestra.Muestra;
 
 public class ManagerDeEventos {
 	//private HashMap<Organizacion suscriptor, ZonaDeCobertura zona> suscriptores = new HashMap<Organizacion suscriptor, ZonaDeCobertura zona>();
-
+	private List <Muestra> bancoDeMuestras;
+	
+	
 	public ManagerDeEventos() {
-		super();
+		this.bancoDeMuestras= new ArrayList<>();
+		
 	}
-
-	public ArrayList<Muestra> getBancoDeMuestras() {
+	public List <Muestra> getBancoDeMuestras() {
 		return this.getBancoDeMuestras();
 	}
 	
 	public void agregarMuestra(Muestra muestraAAgregar) {
-		//this.bancoDeMuestras.add(muestraAAgregar);
+		this.bancoDeMuestras.add(muestraAAgregar);
 	}
+
 	
-	//Implementaciones del controlador:
+
 	
 	
 	
