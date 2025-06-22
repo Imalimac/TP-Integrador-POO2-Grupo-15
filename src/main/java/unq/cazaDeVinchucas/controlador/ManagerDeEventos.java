@@ -16,7 +16,7 @@ public class ManagerDeEventos {
 		
 	}
 	public List <Muestra> getBancoDeMuestras() {
-		return this.getBancoDeMuestras();
+		return this.bancoDeMuestras;
 	}
 	
 	public void agregarMuestra(Muestra muestraAAgregar) {
