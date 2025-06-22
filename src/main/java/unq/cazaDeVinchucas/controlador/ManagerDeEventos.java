@@ -22,6 +22,9 @@ public class ManagerDeEventos {
 	public void agregarMuestra(Muestra muestraAAgregar) {
 		this.bancoDeMuestras.add(muestraAAgregar);
 	}
+	public void eliminarMuestra(Muestra muestraAEliminar) {
+		this.bancoDeMuestras.remove(muestraAEliminar);
+	}
 
 	
 
