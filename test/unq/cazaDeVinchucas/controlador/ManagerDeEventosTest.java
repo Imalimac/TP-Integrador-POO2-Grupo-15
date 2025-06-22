@@ -66,8 +66,47 @@ public class ManagerDeEventosTest {
 	        assertTrue(muestras.contains(muestra3));
 	        assertEquals(3, muestras.size());
 	    }
+	    @Test
+	    public void seEliminaUnaMuestraYLasDemasPermanecen() {
+	        manager.agregarMuestra(muestra1);
+	        manager.agregarMuestra(muestra2);
+	        manager.agregarMuestra(muestra3);
 
+	        manager.eliminarMuestra(muestra2);
+
+	        List<Muestra> muestras = manager.getBancoDeMuestras();
+	        assertFalse(muestras.contains(muestra2));
+	        assertTrue(muestras.contains(muestra1));
+	        assertTrue(muestras.contains(muestra3));
+	        assertEquals(2, muestras.size());
+	    }
+
+	    @Test
+	    public void eliminarMuestraQueNoExisteNoAfectaElBanco() {
+	        manager.agregarMuestra(muestra1);
+	        manager.agregarMuestra(muestra2);
+
+	        manager.eliminarMuestra(muestraInexistente);
+
+	        List<Muestra> muestras = manager.getBancoDeMuestras();
+	        assertEquals(2, muestras.size());
+	        assertTrue(muestras.contains(muestra1));
+	        assertTrue(muestras.contains(muestra2));
+	    }
+	    @Test
+	    public void agregarLaMismaMuestraDosVecesYEliminarUna() {
+	        manager.agregarMuestra(muestra1);
+	        manager.agregarMuestra(muestra1); // misma instancia dos veces
+
+	        manager.eliminarMuestra(muestra1); // solo elimina una
+
+	        List<Muestra> muestras = manager.getBancoDeMuestras();
+	        assertEquals(1, muestras.size());
+	        assertTrue(muestras.contains(muestra1));
+	    }
 	}
+
+	
 
 
 
