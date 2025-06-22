@@ -96,9 +96,9 @@ public class ManagerDeEventosTest {
 	    @Test
 	    public void agregarLaMismaMuestraDosVecesYEliminarUna() {
 	        manager.agregarMuestra(muestra1);
-	        manager.agregarMuestra(muestra1); // misma instancia dos veces
+	        manager.agregarMuestra(muestra1); 
 
-	        manager.eliminarMuestra(muestra1); // solo elimina una
+	        manager.eliminarMuestra(muestra1);
 
 	        List<Muestra> muestras = manager.getBancoDeMuestras();
 	        assertEquals(1, muestras.size());
