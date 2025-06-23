@@ -125,7 +125,6 @@ public class BuscadorDeMuestrasTest {
 		listaDeMuestrasB.add(muestraVotadaA);
 		listaDeMuestrasB.add(muestraVotadaB);
 		
-		
 		//Buscador
 		
 		filtroPorNivelDeVerificacion= new FiltroPorNivelDeVerificacionDeLaMuestra();
@@ -149,8 +148,14 @@ public class BuscadorDeMuestrasTest {
 	}
 	
 	@Test
+	public void getEstrategia() {
+		buscador.setEstrategia(filtroPorCreacion);
+		assertEquals(filtroPorCreacion, buscador.estrategia());
+	}
+	
+	@Test
 	public void buscadorSimpleResultadoMultiple() {
-			
+			 
 		filtroPorNivelDeVerificacion.setNivelDeVerificacion("Votada");
 		buscador.setEstrategia(filtroPorNivelDeVerificacion);
 		buscador.setMuestras(listaDeMuestrasB);

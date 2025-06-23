@@ -49,8 +49,14 @@ class FiltroPorFechaDeUltimaVotacionDeLaMuestraTest {
 								
 		filtroPorUltimaVotacion = new FiltroPorFechaDeUltimaVotacionDeLaMuestra();
 
-	}
+	} 
 	
+	
+	@Test
+	void testGetFecha() {
+		filtroPorUltimaVotacion.setFecha(primeroDeOctubreDe2024);
+		assertEquals(primeroDeOctubreDe2024, filtroPorUltimaVotacion.getFecha());
+	}
 
 	@Test
 	void testFiltroFalse() {
