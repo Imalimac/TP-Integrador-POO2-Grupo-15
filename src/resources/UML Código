@@ -14,7 +14,9 @@ EstadoMuestra <|-- EstadoConOpinionExperta
 
 Usuario <-- UsuarioEspecialista
 
-Organizacion --> ManagerDeEventos
+ManagerDeEventos --> Organizacion
+ManagerDeEventos --> Muestra
+ManagerDeEventos --> ZonaDeCobertura 
 Organizacion --> FuncionalidadExterna
 
 BuscadorDeMuestras <|-- FiltroPorFechaDeCreacionDeLaMuestra 
