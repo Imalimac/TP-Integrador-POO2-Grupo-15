@@ -1,35 +1,78 @@
 package main.java.unq.cazaDeVinchucas.controlador;
-import java.util.ArrayList;
-//import java.util.HashMap;
-import java.util.List;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import main.java.unq.cazaDeVinchucas.modelo.ZonaDeCobertura;
 import main.java.unq.cazaDeVinchucas.modelo.muestra.Muestra;
+import main.java.unq.cazaDeVinchucas.modelo.Organizacion;
 
 public class ManagerDeEventos {
-	//private HashMap<Organizacion suscriptor, ZonaDeCobertura zona> suscriptores = new HashMap<Organizacion suscriptor, ZonaDeCobertura zona>();
-	private List <Muestra> bancoDeMuestras;
+	private static final ManagerDeEventos instancia = new ManagerDeEventos();
+	private List<Muestra> muestrasReportadas; 
+	private List<ZonaDeCobertura> zonasDeCobertura; 
+	private Map <Organizacion, ZonaDeCobertura> suscriptores;
 	
-	
-	public ManagerDeEventos() {
-		this.bancoDeMuestras= new ArrayList<>();
-		
-	}
-	public List <Muestra> getBancoDeMuestras() {
-		return this.bancoDeMuestras;
+	private ManagerDeEventos() {
+		this.muestrasReportadas = new ArrayList<Muestra>();
+		this.zonasDeCobertura = new ArrayList<ZonaDeCobertura>();
+		this.suscriptores = new HashMap <Organizacion, ZonaDeCobertura>();
 	}
 	
-	public void agregarMuestra(Muestra muestraAAgregar) {
-		this.bancoDeMuestras.add(muestraAAgregar);
+	public static ManagerDeEventos getInstancia() {
+		return instancia;
 	}
-	public void eliminarMuestra(Muestra muestraAEliminar) {
-		this.bancoDeMuestras.remove(muestraAEliminar);
+	
+	public List<Muestra> getMuestrasReportadas() {
+		return muestrasReportadas;
 	}
 
+	public void agregarMuestra(Muestra nuevaMuestraReportada) {
+		this.muestrasReportadas.add(nuevaMuestraReportada);
+	}
 	
+	public List<ZonaDeCobertura> getZonasDeCobertura() {
+		return zonasDeCobertura;
+	}
 
+	public void agregarZonaDeCoberturaNueva(ZonaDeCobertura nuevaZonaDeCobertura) {
+		this.zonasDeCobertura.add(nuevaZonaDeCobertura);
+	}
+
+
+	public Map<Organizacion, ZonaDeCobertura> getSuscriptores() {
+		return suscriptores;
+	}
+
+	public void suscribir(Organizacion organizacion, ZonaDeCobertura zona) {
+        suscriptores.put(organizacion, zona);
+    }
+
+    public void desuscribir(Organizacion organizacion, ZonaDeCobertura zona) {
+        suscriptores.remove(organizacion, zona);
+    }
 	
+	public void notificarNuevaValidacionDeMuestra(Muestra muestra) {
+        
+		for (Map.Entry<Organizacion, ZonaDeCobertura> entrada : suscriptores.entrySet()) {
+            ZonaDeCobertura zona = entrada.getValue();
+            if (zona.contieneMuestra(muestra)) {
+                Organizacion organizacion = entrada.getKey();
+                organizacion.funcionalidadValidacionDeMuestra().nuevoEvento(organizacion, zona, muestra);
+            }
+        }
+	}
 	
+	public void notificarNuevaMuestra(Muestra muestra) {
+		for (Map.Entry<Organizacion, ZonaDeCobertura> entrada : suscriptores.entrySet()) {
+            ZonaDeCobertura zona = entrada.getValue();
+            if (zona.contieneMuestra(muestra) ) {
+                Organizacion organizacion = entrada.getKey();
+                organizacion.funcionalidadNuevaMuestra().nuevoEvento(organizacion, zona, muestra);
+            }
+        }
+	}
 	
 	
 }

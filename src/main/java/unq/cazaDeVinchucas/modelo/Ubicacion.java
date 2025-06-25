@@ -22,7 +22,7 @@ public class Ubicacion {
 	public double distanciaEntreDosUbicaciones(Ubicacion primerUbicacion, Ubicacion segundaUbicacion) {
     	final CalculadoraDeDistancias calculadora = new CalculadoraDeDistancias();
         	
-    	return calculadora.calcularDistanciaHaversine(primerUbicacion.getLatitud(),primerUbicacion.getLongitud(), segundaUbicacion.getLatitud(), segundaUbicacion.getLongitud());
+    	return calculadora.calcularDistancia(primerUbicacion.getLatitud(),primerUbicacion.getLongitud(), segundaUbicacion.getLatitud(), segundaUbicacion.getLongitud());
     }
 	
 
