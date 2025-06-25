@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import main.java.unq.cazaDeVinchucas.controlador.ManagerDeEventos;
 import main.java.unq.cazaDeVinchucas.modelo.Ubicacion;
 import main.java.unq.cazaDeVinchucas.modelo.usuario.Usuario;
 
@@ -15,6 +16,7 @@ public class Muestra {
 	public LocalDate fechaDeCreacion; 
 	private EstadoMuestra estadoDeLaMuestra = new EstadoNormal(this);
 	public List<Opinion> opinionesDeLaMuestra = new ArrayList<Opinion>();
+	ManagerDeEventos managerDeEventos = ManagerDeEventos.getInstancia();
 	
 	//Constructor de la muestra:
 	public Muestra(Usuario usuarioDueñoDeLaMuestra, File fotoDeLaMuestra, Ubicacion ubicacionDeLaMuestra) {
@@ -22,6 +24,9 @@ public class Muestra {
 		this.fotoDeLaMuestra = fotoDeLaMuestra;
 		this.ubicacionDeLaMuestra = ubicacionDeLaMuestra;
 		this.fechaDeCreacion = LocalDate.now();
+		managerDeEventos.agregarMuestra(this);
+		managerDeEventos.notificarNuevaMuestra(this);
+		
 	}
 	
 	//Getters y Setters de la muestra:

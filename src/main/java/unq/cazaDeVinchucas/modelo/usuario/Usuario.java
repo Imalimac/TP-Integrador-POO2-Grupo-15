@@ -1,14 +1,20 @@
 package main.java.unq.cazaDeVinchucas.modelo.usuario;
 import java.util.ArrayList;
+import java.util.List;
 
+import main.java.unq.cazaDeVinchucas.modelo.Ubicacion;
 import main.java.unq.cazaDeVinchucas.modelo.muestra.Muestra;
 import main.java.unq.cazaDeVinchucas.modelo.muestra.Opinion;
 
+import java.io.File;
+import java.time.LocalDate;
+
 public class Usuario {
 
-	private Integer cantidadDeEnvios;
-	private Integer cantidadDeRevisiones;
+	private List<LocalDate> fechasDeEnvios = new ArrayList<>();
+	private List<LocalDate> fechasDeRevisiones = new ArrayList<>();
 	private ArrayList<Muestra>muestrasOpinadas = new ArrayList<Muestra>();
+	private ArrayList<Muestra>muestrasEnviadas = new ArrayList<Muestra>();
 	
 	
 	public String nivelDeUsuario() {
@@ -19,35 +25,49 @@ public class Usuario {
 		}
 	}
 	
-	public Integer getCantidadDeEnvios() {
-		return cantidadDeEnvios;
-	}
-
-	public void setCantidadDeEnvios(Integer cantidadDeEnvios) {
-		this.cantidadDeEnvios = cantidadDeEnvios;
-	}
-
-	public Integer getCantidadDeRevisiones() {
-		return cantidadDeRevisiones;
-	}
-
-	public void setCantidadDeRevisiones(Integer cantidadDeRevisiones) {
-		this.cantidadDeRevisiones = cantidadDeRevisiones;
-	}
-
 	public ArrayList<Muestra> getMuestrasOpinadas() {
 		return muestrasOpinadas;
+	}
+	public ArrayList<Muestra> getMuestrasEnviadas() {
+		return muestrasEnviadas;
+	}
+	
+	public void enviarUnaMuestra(File fotoDeLaMuestra, Ubicacion ubicacionDeLaMuestra) {
+		
+		this.muestrasEnviadas.add(new Muestra(this,fotoDeLaMuestra, ubicacionDeLaMuestra));
+		this.registrarEnvio();
+	}
+	
+	public void registrarEnvio() {
+	    fechasDeEnvios.add(LocalDate.now());
 	}
 
 	public void opinarSobreUnaMuestra(Muestra muestra, String opinion) {
 		if(!this.getMuestrasOpinadas().contains(muestra) && muestra.getEstadoDeLaMuestra().getEstado()!="Verificada") {
 		muestra.agregarOpinion(new Opinion(this, muestra, opinion));
-		this.cantidadDeRevisiones = this.cantidadDeRevisiones + 1; 
+		this.registrarRevision(); 
 		this.muestrasOpinadas.add(muestra);
 		}
 	}
 	
+	public void registrarRevision() {
+	    fechasDeRevisiones.add(LocalDate.now());
+	}
+
+	
 	public boolean cumpleCondicionDeExperto() {
-		return false;
+		LocalDate hoy = LocalDate.now();
+	    LocalDate hace30Dias = hoy.minusDays(30);
+
+	    long cantidadEnviosRecientes = fechasDeEnvios.stream()
+	        .filter(fecha -> !fecha.isBefore(hace30Dias))
+	        .count();
+
+	    long cantidadRevisionesRecientes = fechasDeRevisiones.stream()
+	        .filter(fecha -> !fecha.isBefore(hace30Dias))
+	        .count();
+
+	    return cantidadEnviosRecientes > 10 && cantidadRevisionesRecientes > 20;
+
 	} 
 }
