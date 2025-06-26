@@ -10,12 +10,12 @@ import main.java.unq.cazaDeVinchucas.modelo.Ubicacion;
 import main.java.unq.cazaDeVinchucas.modelo.usuario.Usuario;
 
 public class Muestra {
-	public Usuario usuarioDueñoDeLaMuestra;
-	public File fotoDeLaMuestra; 
-	public Ubicacion ubicacionDeLaMuestra;
-	public LocalDate fechaDeCreacion; 
+	private Usuario usuarioDueñoDeLaMuestra;
+	private File fotoDeLaMuestra; 
+	private Ubicacion ubicacionDeLaMuestra;
+	private LocalDate fechaDeCreacion; 
 	private EstadoMuestra estadoDeLaMuestra = new EstadoNormal(this);
-	public List<Opinion> opinionesDeLaMuestra = new ArrayList<Opinion>();
+	private List<Opinion> opinionesDeLaMuestra = new ArrayList<Opinion>();
 	ManagerDeEventos managerDeEventos = ManagerDeEventos.getInstancia();
 	
 	//Constructor de la muestra:
@@ -45,6 +45,10 @@ public class Muestra {
 		
 	public File getFotoDeLaMuestra() {
 		return this.fotoDeLaMuestra;
+	}
+	
+	public Usuario getusuarioDueñoDeLaMuestra() {
+		return this.usuarioDueñoDeLaMuestra;
 	}
 
 	public Ubicacion getUbicacionDeLaMuestra() {

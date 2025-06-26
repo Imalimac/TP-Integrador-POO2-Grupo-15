@@ -10,15 +10,9 @@ import main.java.unq.cazaDeVinchucas.modelo.Organizacion;
 
 public class ManagerDeEventos {
 	private static final ManagerDeEventos instancia = new ManagerDeEventos();
-	private List<Muestra> muestrasReportadas; 
-	private List<ZonaDeCobertura> zonasDeCobertura; 
-	private Map <Organizacion, ZonaDeCobertura> suscriptores;
-	
-	private ManagerDeEventos() {
-		this.muestrasReportadas = new ArrayList<Muestra>();
-		this.zonasDeCobertura = new ArrayList<ZonaDeCobertura>();
-		this.suscriptores = new HashMap <Organizacion, ZonaDeCobertura>();
-	}
+	private List<Muestra> muestrasReportadas = new ArrayList<Muestra>(); 
+	private List<ZonaDeCobertura> zonasDeCobertura = new ArrayList<ZonaDeCobertura>(); 
+	private Map <Organizacion, ZonaDeCobertura> suscriptores  = new HashMap <Organizacion, ZonaDeCobertura>();
 	
 	public static ManagerDeEventos getInstancia() {
 		return instancia;
@@ -54,12 +48,11 @@ public class ManagerDeEventos {
     }
 	
 	public void notificarNuevaValidacionDeMuestra(Muestra muestra) {
-        
 		for (Map.Entry<Organizacion, ZonaDeCobertura> entrada : suscriptores.entrySet()) {
             ZonaDeCobertura zona = entrada.getValue();
             if (zona.contieneMuestra(muestra)) {
                 Organizacion organizacion = entrada.getKey();
-                organizacion.funcionalidadValidacionDeMuestra().nuevoEvento(organizacion, zona, muestra);
+                organizacion.funcionalidadValidacionDeMuestra(zona, muestra);
             }
         }
 	}
@@ -69,7 +62,7 @@ public class ManagerDeEventos {
             ZonaDeCobertura zona = entrada.getValue();
             if (zona.contieneMuestra(muestra) ) {
                 Organizacion organizacion = entrada.getKey();
-                organizacion.funcionalidadNuevaMuestra().nuevoEvento(organizacion, zona, muestra);
+                organizacion.funcionalidadNuevaMuestra(zona, muestra);
             }
         }
 	}

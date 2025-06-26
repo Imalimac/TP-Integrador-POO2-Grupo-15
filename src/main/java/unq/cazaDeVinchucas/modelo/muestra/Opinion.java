@@ -5,10 +5,10 @@ import java.time.LocalDate;
 import main.java.unq.cazaDeVinchucas.modelo.usuario.Usuario;
 
 public class Opinion {
-	public Usuario usuario;
-	public Muestra muestra;
-	public String opinion;
-	public LocalDate fecha;
+	private Usuario usuario;
+	private Muestra muestra;
+	private String opinion;
+	private LocalDate fecha;
 	final String tipo;
 	
 	public Opinion(Usuario usuario, Muestra muestra, String opinion) {

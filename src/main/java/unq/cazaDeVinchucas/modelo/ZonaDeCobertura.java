@@ -14,7 +14,6 @@ public class ZonaDeCobertura {
 	private ManagerDeEventos managerDeEventos = ManagerDeEventos.getInstancia();
 	
 	public ZonaDeCobertura(Ubicacion epicentro, Integer radio, String nombre) {
-		super();
 		this.epicentro = epicentro;
 		this.radio = radio;
 		this.nombre = nombre;
@@ -40,7 +39,7 @@ public class ZonaDeCobertura {
 		}
 			muestrasDeLaZona.add(muestra);
 		}
-	}
+	} 
 
 	public ArrayList<Muestra> getMuestrasDeLaZona() {
 		return muestrasDeLaZona;

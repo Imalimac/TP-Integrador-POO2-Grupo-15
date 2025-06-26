@@ -10,12 +10,10 @@ import java.io.File;
 import java.time.LocalDate;
 
 public class Usuario {
-
 	private List<LocalDate> fechasDeEnvios = new ArrayList<>();
 	private List<LocalDate> fechasDeRevisiones = new ArrayList<>();
-	private ArrayList<Muestra>muestrasOpinadas = new ArrayList<Muestra>();
-	private ArrayList<Muestra>muestrasEnviadas = new ArrayList<Muestra>();
-	
+	private List<Muestra>muestrasOpinadas = new ArrayList<Muestra>();
+	private List<Muestra>muestrasEnviadas = new ArrayList<Muestra>();
 	
 	public String nivelDeUsuario() {
 		if (this.cumpleCondicionDeExperto()) {
@@ -25,15 +23,19 @@ public class Usuario {
 		}
 	}
 	
-	public ArrayList<Muestra> getMuestrasOpinadas() {
+	public List<Muestra> getMuestrasOpinadas() {
 		return muestrasOpinadas;
 	}
-	public ArrayList<Muestra> getMuestrasEnviadas() {
+	
+	public List<Muestra> getMuestrasEnviadas() {
 		return muestrasEnviadas;
 	}
 	
+	public List<LocalDate> getfechasDeRevisiones() {
+		return fechasDeRevisiones;
+	}
+	
 	public void enviarUnaMuestra(File fotoDeLaMuestra, Ubicacion ubicacionDeLaMuestra) {
-		
 		this.muestrasEnviadas.add(new Muestra(this,fotoDeLaMuestra, ubicacionDeLaMuestra));
 		this.registrarEnvio();
 	}
@@ -54,7 +56,6 @@ public class Usuario {
 	    fechasDeRevisiones.add(LocalDate.now());
 	}
 
-	
 	public boolean cumpleCondicionDeExperto() {
 		LocalDate hoy = LocalDate.now();
 	    LocalDate hace30Dias = hoy.minusDays(30);
@@ -68,6 +69,5 @@ public class Usuario {
 	        .count();
 
 	    return cantidadEnviosRecientes > 10 && cantidadRevisionesRecientes > 20;
-
 	} 
 }

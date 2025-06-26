@@ -75,6 +75,7 @@ public class MuestraTest {
 	@Test
 	public void settersYGetters() {
 		muestra.setEstadoDeLaMuestra(eNormalMock); 
+		assertEquals(usuarioMock, muestra.getusuarioDueñoDeLaMuestra());
 		assertEquals(LocalDate.now(), muestra.getFechaDeCreacion());
 		assertEquals(fileMock, muestra.getFotoDeLaMuestra());
 		assertEquals(eNormalMock, muestra.getEstadoDeLaMuestra());

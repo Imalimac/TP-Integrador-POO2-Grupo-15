@@ -1,21 +1,25 @@
 package main.java.unq.cazaDeVinchucas.modelo;
 
 import main.java.unq.cazaDeVinchucas.controlador.ManagerDeEventos;
+import main.java.unq.cazaDeVinchucas.modelo.muestra.Muestra;
 import main.java.unq.cazaDeVinchucas.servicio.FuncionalidadExterna;
 
-public abstract class Organizacion {
+public class Organizacion {
 	private Ubicacion ubicacionDeLaOrganizacion; 
 	private String tipoDeOrganizacion;
-	private Integer cantidadDePersonal;
-	private ManagerDeEventos managerDeEventos;
+	private int cantidadDePersonal;
+	private ManagerDeEventos managerDeEventos = ManagerDeEventos.getInstancia();
+	private FuncionalidadExterna funcionalidadNuevaMuestra;
+	private FuncionalidadExterna funcionalidadValidacionDeMuestra;
 	
 
-	public Organizacion(Ubicacion ubicacionDeLaOrganizacion, String tipoDeOrganizacion, Integer cantidadDePersonal) {
-		super();
+	public Organizacion(Ubicacion ubicacionDeLaOrganizacion, String tipoDeOrganizacion, Integer cantidadDePersonal,
+			FuncionalidadExterna funcionalidadNuevaMuestra, FuncionalidadExterna funcionalidadValidacionDeMuestra) {
 		this.ubicacionDeLaOrganizacion = ubicacionDeLaOrganizacion;
 		this.tipoDeOrganizacion = tipoDeOrganizacion;
 		this.cantidadDePersonal = cantidadDePersonal;
-		this.managerDeEventos = ManagerDeEventos.getInstancia();
+		this.funcionalidadNuevaMuestra = funcionalidadNuevaMuestra;
+		this.funcionalidadValidacionDeMuestra = funcionalidadValidacionDeMuestra;
 	}
 
 	//Getters y setters:
@@ -35,7 +39,7 @@ public abstract class Organizacion {
 		this.tipoDeOrganizacion = tipoDeOrganizacion;
 	}
 
-	public Integer getCantidadDePersonal() {
+	public int getCantidadDePersonal() {
 		return cantidadDePersonal;
 	}
 
@@ -43,20 +47,21 @@ public abstract class Organizacion {
 		this.cantidadDePersonal = cantidadDePersonal;
 	}
 
-	public  void suscribirseA(ZonaDeCobertura zona) {
-		managerDeEventos.suscribir(this,zona);
+	public void suscribirseA(ZonaDeCobertura zona) {
+		managerDeEventos.suscribir(this, zona);
 	}
 	
-	public  void desuscribirseA(ZonaDeCobertura zona) {
-		managerDeEventos.desuscribir(this,zona);
+	public void desuscribirseA(ZonaDeCobertura zona) {
+		managerDeEventos.desuscribir(this, zona);
 	}
 	
-	abstract public FuncionalidadExterna funcionalidadNuevaMuestra();
+	public void funcionalidadNuevaMuestra(ZonaDeCobertura zona, Muestra muestra) {
+		this.funcionalidadNuevaMuestra.nuevoEvento(this, zona, muestra);
+	}
 	
-	abstract public FuncionalidadExterna funcionalidadValidacionDeMuestra();
-
-
-		
+	public void funcionalidadValidacionDeMuestra(ZonaDeCobertura zona, Muestra muestra) {
+		this.funcionalidadValidacionDeMuestra.nuevoEvento(this, zona, muestra);
+	} 
 }
 	
 
