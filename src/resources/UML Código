@@ -1,31 +1,26 @@
 @startuml
 
-Muestra ..> EstadoMuestra
-Muestra --> Usuario
-Muestra --> Ubicacion
+Muestra "1" ..> "3" EstadoMuestra: estado 
+Muestra "1" --> "1" Usuario: autor
+Muestra "1" --> "1" Ubicacion: ubicación de la muestra
+Muestra "1" --> "n" Opinion: opiniones de la muestra
 
-Organizacion --> Ubicacion
-ZonaDeCobertura --> Ubicacion
-ZonaDeCobertura <--ZonaDeCobertura
+Organizacion "1" --> "1" Ubicacion: ubicación
+ZonaDeCobertura"1" --> "1" Ubicacion: ubicación
+ZonaDeCobertura "n" <-- "n" ZonaDeCobertura: zonas contenidas
 
 EstadoMuestra <|-- EstadoVerificada
 EstadoMuestra <|-- EstadoNormal
 EstadoMuestra <|-- EstadoConOpinionExperta
 
-Usuario <-- UsuarioEspecialista
+Usuario <|-- Especialista
 
-ManagerDeEventos --> Organizacion
-ManagerDeEventos --> Muestra
-ManagerDeEventos --> ZonaDeCobertura 
+ManagerDeEventos "1" --> "n" Organizacion: organizaciones 
+ManagerDeEventos "1" --> "n" Muestra: muestras
+ManagerDeEventos "1" --> "n" ZonaDeCobertura: zonas de cobertura 
 Organizacion --> FuncionalidadExterna
 
-BuscadorDeMuestras <|-- FiltroPorFechaDeCreacionDeLaMuestra 
-BuscadorDeMuestras <|-- FiltroPorFechaDeCreacionDeLaMuestra 
-BuscadorDeMuestras <|-- FiltroPorFechaDeUltimaVotacionDeLaMuestra 
-BuscadorDeMuestras <|-- FiltroPorTipoDeInsectoDeLaMuestra 
-BuscadorDeMuestras <|-- FiltroPorNivelDeVerificacionDeLaMuestra 
-BuscadorDeMuestras <|-- FiltroAnd 
-BuscadorDeMuestras <|-- FiltroOr
+BuscadorDeMuestras "1" --> "n" CriterioDeFiltracion: filtros de búsqueda
 
 FiltroPorFechaDeCreacionDeLaMuestra <.. CriterioDeFiltracion
 FiltroPorFechaDeCreacionDeLaMuestra <.. CriterioDeFiltracion
@@ -36,144 +31,255 @@ FiltroAnd <.. CriterioDeFiltracion
 FiltroOr <.. CriterioDeFiltracion
 
 
-Class Muestra{
-- opiniones: List<Opinion>;
-- imagen: Image;
-- autor: Usuario;
-- estadoDeLaMuestra: EstadoMuestra;
-
-+ resultadoActual(): Opinion;
-}
-
-Class Usuario{
-- nivel: String;
-
-+ enviar(Muestra): void;
-+ opinar(Muestra): void;
-}
-
-Class Ubicacion {
--longitud: double;
--latitud: double;
-
-+distanciaEntre(Ubicacion primerUbicacion, Ubicacion segundaUbicacion): double;
-+ubicacionA_distacia(List<Ubicacion> ubicaciones, double distacia): List <Ubicacion>;
-+muestrasA_distaciaDeMuestra_(double distancia, Muestra muestra): List <Muestra>;
+Class ManagerDeEventos{
+	- static final ManagerDeEventos:;
+	- muestrasReportadas: List<Muestra>; 
+	- LzonasDeCobertura: List<ZonaDeCobertura>; 
+	- suscriptores: Map <Organizacion, ZonaDeCobertura>;
+	
+	- ManagerDeEventos();
+	+ static getInstancia(): ManagerDeEventos;
+	
+	+ getMuestrasReportadas(): List<Muestra>;
+	+ agregarMuestra(Muestra nuevaMuestraReportada): void;
+	+ getZonasDeCobertura(): List<ZonaDeCobertura>;
+	+ agregarZonaDeCoberturaNueva(ZonaDeCobertura nuevaZonaDeCobertura): void;
+	+ getSuscriptores():Map<Organizacion, ZonaDeCobertura>;
+	+ suscribir(Organizacion organizacion, ZonaDeCobertura zona): void;
+    + desuscribir(Organizacion organizacion, ZonaDeCobertura zona): void;
+	+ notificarNuevaValidacionDeMuestra(Muestra muestra): void;
+	+ notificarNuevaMuestra(Muestra muestra): void;
 }
 
 Class Organizacion {
--ubicacion: Ubicacion;
--tipo: String;
--cantidadDePersonal: Integer;
--funcionalidadExternaValidacion: FuncionalidadExterna;
--funcionalidadExternaMuestra: FuncionalidadExterna;
+	- ubicacionDeLaOrganizacion: Ubicacion; 
+	- tipoDeOrganizacion: String;
+	- cantidadDePersonal: Integer;
+	- managerDeEventos: ManagerDeEventos;
+	
 
-+ Organizacion(Ubicacion ubicacion, String tipo, Integer cantidadDePersonal, FuncionalidadExterna funcionalidadExternaValidacion, FuncionalidadExterna funcionalidadExternaMuestra)
+	+ Organizacion(Ubicacion ubicacionDeLaOrganizacion, String tipoDeOrganizacion, Integer cantidadDePersonal);
+	+ getUbicacionDeLaOrganizacion(): Ubicacion;
+	+ setUbicacionDeLaOrganizacion(Ubicacion ubicacionDeLaOrganizacion): void;
+	+ setTipoDeOrganizacion(String tipoDeOrganizacion): void;
+	+ getCantidadDePersonal(): Integer;
+	+ setCantidadDePersonal(Integer cantidadDePersonal): void;
+	+ suscribirseA(ZonaDeCobertura zona): void;
+	+ desuscribirseA(ZonaDeCobertura zona): void;
+	+ funcionalidadNuevaMuestra(ZonaDeCobertura zona, Muestra muestra): FuncionalidadExterna;
+	+ funcionalidadValidacionDeMuestra(ZonaDeCobertura zona, Muestra muestra): FuncionalidadExterna;
 }
 
-Interface FuncionalidadExterna{
-  +nuevoEvento(Organizacion organizacion, ZonaDeCobertura zonaDeCobertura, Muestra muestra);
+Class Ubicacion {
+	- longitud: double;
+	- latitud: double;
+	
+	+ Ubicacion(double latitud, double longitud);
+	+ getLatitud(): double;
+	+ getLongitud(): double;
+	+ distanciaEntreDosUbicaciones(Ubicacion primerUbicacion, Ubicacion segundaUbicacion): double;
+
 }
 
 Class ZonaDeCobertura {
-- regionesGeograficas: List<ZonaDeCobertura>;
-- epicentro: Ubicacion;
-- radio: double;
-- nombre: String;
-- muestrasDeLaZona: List <Muestra>;
-
-+ area(): double;
-+ muestras(): List<Muestra>;
-+ zonasSolapadas(): List<ZonaDeCobertura>;
-}
-
-Class ManagerDeEventos{
-- suscriptores: HashMap <Organizacion suscriptor, ZonaDeCobertura zona>;
-
-+ notificarMuestraAgregada():void; 
-+ notificarValidacionDeMuestra(Muestra muestra): void;
-+ agregarSuscriptor(Organizacion suscriptor, ZonaDeCobertura zona ): void;
-+ eliminarSucriptor(Organizacion suscriptor, ZonaDeCobertura zona): void;
-}
-
-Interface CriterioDeFiltracion{
-  + cumpleCriterio(Muestra muestra): boolean;
-}
+	- epicentro: Ubicacion;
+	- radio: Integer; 
+	- String nombre: Integer;
+	- muestrasDeLaZona: ArrayList<Muestra>;
+	- managerDeEventos: ManagerDeEventos;
+	
+	+ ZonaDeCobertura(Ubicacion epicentro, Integer radio, String nombre)
+	+ getEpicentro(): Ubicacion;	
+	+ getRadio(): Integer;
+	+ getNombre():String 
+	+ agregarMuestrasALaZona(): void 
+	+ getMuestrasDeLaZona():ArrayList<Muestra> 
+    + contieneMuestra(Muestra muestra): boolean
+	+ seSolapaCon(ZonaDeCobertura otraZona): boolean
+    + zonasSolapadas(List<ZonaDeCobertura> listaDeZonas): List<ZonaDeCobertura> 
+    + contieneUbicacion(Ubicacion ubicacion): boolean
+}    
 
 Class BuscadorDeMuestras{
+	- CriterioDeFiltracion estrategia:;
+
 	+ BuscadorDeMuestras();
-  	+ filtrar(List <Muestra> muestras, CriterioDeFiltracion estrategia): List<Muestra>;
+  	+ setEstrategia(CriterioDeFiltracion estrategia): void 
+    + estrategia(): CriterioDeFiltracion 
+	+ setMuestras(List<Muestra> muestras): void 
+	+ filtrar():List<Muestra> 
 }
 
 Class FiltroPorFechaDeCreacionDeLaMuestra{
   	+ fecha: LocalDate;
-  	+ FiltroPorFechaDeCreacionDeLaMuestra(LocalDate fecha);
+  	
+  	+ FiltroPorFechaDeCreacionDeLaMuestra():;
+  	+ setFecha(LocalDate fecha): void 
   	+ cumpleCriterio(Muestra muestra): boolean;
 }
 
 Class FiltroPorFechaDeUltimaVotacionDeLaMuestra{
 	+ fecha: LocalDate;
-	+ FiltroPorFechaDeUltimaVotacionDeLaMuestra(LocalDate fecha);
-  	+ cumpleCriterio(Muestra muestra): boolean;
+	
+	+ FiltroPorFechaDeUltimaVotacionDeLaMuestra();
+	+ setFecha(LocalDate fecha): void; 
+	+ cumpleCriterio(Muestra muestra): boolean;
 }
 
 Class FiltroPorTipoDeInsectoDeLaMuestra{
   	+ tipoDeInsecto = String;
-  	+ FiltroPorTipoDeInsectoDeLaMuestra(String tipoDeInsecto);
+  	
+  	+ FiltroPorTipoDeInsectoDeLaMuestra();
+  	+ setTipoDeInsecto(String tipoDeInsecto): void ;
   	+ cumpleCriterio(Muestra muestra): boolean;
 }
 
 Class FiltroPorNivelDeVerificacionDeLaMuestra{
 	- nivelDeVerificacion: String;
+	
 	+ FiltroPorNivelDeVerificacionDeLaMuestra(String nivelDeVerificacion);
+	+ setNivelDeVerificacion(String nivelDeVerificacion): void ;
 	+ cumpleCriterio(Muestra muestra): boolean;
 }
 
 Class FiltroAnd{
-  - List<CriterioDeFiltracion> estrategias;
-  + filtroAnd(List<CriterioDeFiltracion> estrategias); 
-  + cumpleCriterio(Muestra muestra): boolean;
+  	- List<CriterioDeFiltracion> estrategias;
+  
+  	+ FiltroAnd(List<CriterioDeFiltracion> estrategias);
+  	+ agregarCriterio(CriterioDeFiltracion estrategia): void ; 
+  	+ cumpleCriterio(Muestra muestra): boolean;
 }
 
 Class FiltroOr{
-  - List<CriterioDeFiltracion> estrategias;
-  + filtroOR(List<CriterioDeFiltracion> estrategias); 
-  + cumpleCriterio(Muestra muestra): boolean;
+  	- List<CriterioDeFiltracion> estrategias;
+  
+  	+ FiltroOr(); 
+  	+ agregarCriterio(CriterioDeFiltracion estrategia): void ;
+  	+ cumpleCriterio(Muestra muestra): boolean;
 }
 
 Class EstadoMuestra{
-  - muestra: Muestra;
-  + cambiarEstado(): void;
-  + corroborarEstado(): void;
-  + agregarO(Opinion opinionAAgregar): void;
-  + resultadoFinal(): String;
-  + siguienteEstado(): EstadoMuestra;
-  + condicionDeCambioDeEstado(): boolean;
-  + getEstado(): String;
+  	- muestra: Muestra;
+	
+	+ EstadoMuestra(Muestra muestra)
+	+ Muestra getMuestra():
+	- setMuestra(Muestra muestra): void 
+	+ cambiarEstado(): void 
+	+ corroborarEstado(): void 
+	+ abstract resultadoFinal(): String;
+  	+ abstract siguienteEstado(): EstadoMuestra;
+  	+ abstract condicionDeCambioDeEstado(): boolean;
+  	+ abstract getEstado(): String;
+  	+ abstract agregarO(Opinion opinionAAgregar): void;
+	
 }
 
 Class EstadoNormal{
-  + resultadoFinal(): String;
-  + siguienteEstado(): EstadoMuestra;
-  + condicionDeCambioDeEstado(): boolean;
-  + getEstado(): String;
-  + agregarO(Opinion opinionAAgregar): void;
+ 	+ EstadoNormal(Muestra muestra)
+		
+	+ resultadoFinal(): String;
+  	+ siguienteEstado(): EstadoMuestra;
+  	+ condicionDeCambioDeEstado(): boolean;
+  	+ getEstado(): String;
+  	+ agregarO(Opinion opinionAAgregar): void;
 }
 
 Class EstadoConOpinionExperta{
-  + resultadoFinal(): String;
-  + siguienteEstado(): EstadoMuestra;
-  + condicionDeCambioDeEstado(): boolean;
-  + getEstado(): String;
-  + agregarO(Opinion opinionAAgregar): void;
+	+ EstadoConOpinionExperta(Muestra muestra);
+  	
+  	+ resultadoFinal(): String;
+  	+ siguienteEstado(): EstadoMuestra;
+  	+ condicionDeCambioDeEstado(): boolean;
+ 	+ getEstado(): String;
+  	+ agregarO(Opinion opinionAAgregar): void;
 }
 
 Class EstadoVerificada{
-  + resultadoFinal(): String;
-  + siguienteEstado(): EstadoMuestra;
-  + condicionDeCambioDeEstado(): boolean;
-  + getEstado(): String;
-  + agregarO(Opinion opinionAAgregar): void;
+	+ EstadoVerificada(Muestra muestra)
+ 
+ 	+ resultadoFinal(): String;
+  	+ siguienteEstado(): EstadoMuestra;
+  	+ condicionDeCambioDeEstado(): boolean;
+  	+ getEstado(): String;
+  	+ agregarO(Opinion opinionAAgregar): void;
+}
+    
+Class Muestra{
+	- usuarioDueñoDeLaMuestra: Usuario; 
+	- fotoDeLaMuestra: File; 
+	- ubicacionDeLaMuestra: Ubicacion;
+	- fechaDeCreacion: LocalDate; 
+	- estadoDeLaMuestra: EstadoMuestra;
+	- opinionesDeLaMuestra: List<Opinion>;
+	- managerDeEventos: ManagerDeEventos;
+
+	+ Muestra(Usuario usuarioDueñoDeLaMuestra, File fotoDeLaMuestra, Ubicacion ubicacionDeLaMuestra);
+	+ agregarOpinion(Opinion opinionAAgregar): void;	
+	+ agregarO(Opinion opinionAAgregar): void;
+	+ getOpinionesDeLaMuestra(): List<Opinion>;	
+	+ getFotoDeLaMuestra(): File;
+	+ getUbicacionDeLaMuestra(): Ubicacion;
+	+ getFechaDeCreacion():LocalDate;
+	+ getEstadoDeLaMuestra():EstadoMuestra;	
+	+ setEstadoDeLaMuestra(EstadoMuestra estadoDeLaMuestra): void;	
+	+ getListaDeResultadosDeOpinionDeLaMuestra(): List<String> ;
+	+ getListaOpinionesExpertasDeLaMuestra(): List<Opinion>;
+	+ getListaDeResultadosExpertosDeLaMuestra(): List<String>;
+	+ resultadoFinal(): String;
+}
+
+
+Class Usuario{
+	- fechasDeEnvios: List<LocalDate> ;
+	- List<LocalDate> fechasDeRevisiones: List<LocalDate>;
+	- muestrasOpinadas: ArrayList<Muestra>;
+	- muestrasEnviadas: ArrayList<Muestra>;
+	
+	+ nivelDeUsuario(): String;	
+	+ getMuestrasEnviadas(): ArrayList<Muestra>; 
+	+ registrarEnvio(): void;
+	+ opinarSobreUnaMuestra(Muestra muestra, String opinion): void;
+	+ registrarRevision(): void;
+	+ cumpleCondicionDeExperto(): boolean; 
+}
+
+Class Especialista {
+	+ boolean cumpleCondicionDeExperto(): boolean; 
+}
+
+Class Opinion {
+	+ usuario: Usuario;
+	+ muestra: Muestra;
+	+ opinion: String;
+	+ fecha: LocalDate;
+	final tipo: String;
+	
+	+ Opinion(Usuario usuario, Muestra muestra, String opinion)
+	+ getUsuario(): Usuario;
+	+ getMuestra(): Muestra;
+	+ getOpinion(): String;
+	+  getFecha(): LocalDate;
+	+ getTipo(): String; 
+
+}
+
+
+Interface FuncionalidadExterna{
+  	+ nuevoEvento(Organizacion organizacion, ZonaDeCobertura zonaDeCobertura, Muestra muestra);
+}
+
+Interface CriterioDeFiltracion{
+  	+ cumpleCriterio(Muestra muestra): boolean;
+}
+
+class CalculadoraDeDistancias {
+	+ calcularDistancia(double lat1, double lon1, double lat2, double lon2): double; 
+}
+
+class BuscadorDeElementosDeUnaLista <T> {
+	+ BuscadorDeElementosDeUnaLista();
+	+ T encontrarElementoMasComun(List<T> lista): T;
+	+ hayUnUnicoElementoConFrecuenciaMaxima(List<T> lista): boolean;
 }
 
 @enduml
