@@ -25,8 +25,7 @@ public class Muestra {
 		this.ubicacionDeLaMuestra = ubicacionDeLaMuestra;
 		this.fechaDeCreacion = LocalDate.now();
 		managerDeEventos.agregarMuestra(this);
-		managerDeEventos.notificarNuevaMuestra(this);
-		
+		this.notificarNuevaMuestraAManager();
 	}
 	
 	//Getters y Setters de la muestra:
@@ -79,8 +78,15 @@ public class Muestra {
 		return this.getListaOpinionesExpertasDeLaMuestra().stream().map(o -> o.getOpinion()).toList();
 	}
 	
-	//Funcionalidad de la muestra:
 	public String resultadoFinal() {
 		return this.estadoDeLaMuestra.resultadoFinal();
+	}
+	
+	public void notificarNuevaMuestraAManager() {
+		managerDeEventos.notificarNuevaMuestra(managerDeEventos.zonaDe(this), this);
+	}
+	
+	public void notificarVerificacionAManager() {
+		managerDeEventos.notificarNuevaValidacionDeMuestra(managerDeEventos.zonaDe(this), this);
 	}
 }

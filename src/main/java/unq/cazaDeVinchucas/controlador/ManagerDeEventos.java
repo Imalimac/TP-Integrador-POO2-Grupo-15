@@ -1,9 +1,7 @@
 package main.java.unq.cazaDeVinchucas.controlador;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import main.java.unq.cazaDeVinchucas.modelo.ZonaDeCobertura;
 import main.java.unq.cazaDeVinchucas.modelo.muestra.Muestra;
 import main.java.unq.cazaDeVinchucas.modelo.Organizacion;
@@ -12,7 +10,7 @@ public class ManagerDeEventos {
 	private static final ManagerDeEventos instancia = new ManagerDeEventos();
 	private List<Muestra> muestrasReportadas = new ArrayList<Muestra>(); 
 	private List<ZonaDeCobertura> zonasDeCobertura = new ArrayList<ZonaDeCobertura>(); 
-	private Map <Organizacion, ZonaDeCobertura> suscriptores  = new HashMap <Organizacion, ZonaDeCobertura>();
+	private List<Organizacion> suscriptores  = new ArrayList <Organizacion>();
 	
 	public static ManagerDeEventos getInstancia() {
 		return instancia;
@@ -32,42 +30,44 @@ public class ManagerDeEventos {
 
 	public void agregarZonaDeCoberturaNueva(ZonaDeCobertura nuevaZonaDeCobertura) {
 		this.zonasDeCobertura.add(nuevaZonaDeCobertura);
+		nuevaZonaDeCobertura.agregarMuestrasALaZona();
 	}
-
-
-	public Map<Organizacion, ZonaDeCobertura> getSuscriptores() {
+	
+	public List<Organizacion> getSuscriptores() {
 		return suscriptores;
 	}
 
-	public void suscribir(Organizacion organizacion, ZonaDeCobertura zona) {
-        suscriptores.put(organizacion, zona);
+	public void suscribir(Organizacion orga, ZonaDeCobertura zona) {
+        if(!esSuscriptior(orga)) {
+        	suscriptores.add(orga);
+        	orga.suscribirseA(zona);
+        }
     }
 
-    public void desuscribir(Organizacion organizacion, ZonaDeCobertura zona) {
-        suscriptores.remove(organizacion, zona);
+    public void desuscribir(Organizacion orga, ZonaDeCobertura zona) {
+    	if(esSuscriptior(orga)) {
+    		suscriptores.remove(orga);
+    		orga.desuscribirseA(zona);
+        }
     }
-	
-	public void notificarNuevaValidacionDeMuestra(Muestra muestra) {
-		for (Map.Entry<Organizacion, ZonaDeCobertura> entrada : suscriptores.entrySet()) {
-            ZonaDeCobertura zona = entrada.getValue();
-            if (zona.contieneMuestra(muestra)) {
-                Organizacion organizacion = entrada.getKey();
-                organizacion.funcionalidadValidacionDeMuestra(zona, muestra);
-            }
-            //pasarlo como parametro con funcion auxiliar la funcionalidad interna
-            
-        }
+    
+    private boolean esSuscriptior(Organizacion org) {
+    	return suscriptores.contains(org);
+    }
+    
+    public List<Organizacion> organizacionesSuscritasA(List<ZonaDeCobertura> zona) {
+    	return suscriptores.stream().filter(o -> o.getSuscripciones().stream().anyMatch(s -> zona.contains(s))).toList();
+    }
+
+	public void notificarNuevaValidacionDeMuestra(List<ZonaDeCobertura> zona, Muestra muestra) {
+		this.organizacionesSuscritasA(zona).forEach(o -> o.funcionalidadValidacionDeMuestra(zona.getFirst(), muestra));
 	}
 	
-	public void notificarNuevaMuestra(Muestra muestra) {
-		for (Map.Entry<Organizacion, ZonaDeCobertura> entrada : suscriptores.entrySet()) {
-            ZonaDeCobertura zona = entrada.getValue();
-            if (zona.contieneMuestra(muestra) ) {
-                Organizacion organizacion = entrada.getKey();
-                organizacion.funcionalidadNuevaMuestra(zona, muestra);
-            }
-        }
+	public void notificarNuevaMuestra(List<ZonaDeCobertura> zona, Muestra muestra) {
+		this.organizacionesSuscritasA(zona).forEach(o -> o.funcionalidadNuevaMuestra(zona.getFirst(), muestra));
 	}
 	
-	
+	public List<ZonaDeCobertura> zonaDe(Muestra muestra) {
+		return zonasDeCobertura.stream().filter(z -> z.contieneMuestra(muestra)).toList();
+	}
 }

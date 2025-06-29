@@ -6,7 +6,6 @@ public class Ubicacion {
     private double longitud;
     
     public Ubicacion(double latitud, double longitud) {
-		super();
 		this.latitud = latitud;
 		this.longitud = longitud;
 	}
@@ -19,10 +18,10 @@ public class Ubicacion {
 		return longitud;
 	}
 
-	public double distanciaEntreDosUbicaciones(Ubicacion primerUbicacion, Ubicacion segundaUbicacion) {
+	public double distanciaHaciaUbicacion(Ubicacion ubicacion) {
     	final CalculadoraDeDistancias calculadora = new CalculadoraDeDistancias();
         	
-    	return calculadora.calcularDistancia(primerUbicacion.getLatitud(),primerUbicacion.getLongitud(), segundaUbicacion.getLatitud(), segundaUbicacion.getLongitud());
+    	return calculadora.calcularDistancia(this.getLatitud(), this.getLongitud(), ubicacion.getLatitud(), ubicacion.getLongitud());
     }
 	
 

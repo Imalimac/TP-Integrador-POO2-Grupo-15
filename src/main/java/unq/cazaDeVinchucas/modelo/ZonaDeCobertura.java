@@ -8,24 +8,23 @@ import main.java.unq.cazaDeVinchucas.modelo.muestra.Muestra;
 
 public class ZonaDeCobertura {
 	private Ubicacion epicentro;
-	private Integer radio; //Esta distancia representa KM.
+	private int radio; //Esta distancia representa KM.
 	private String nombre;
 	private ArrayList<Muestra> muestrasDeLaZona = new ArrayList<Muestra>();
 	private ManagerDeEventos managerDeEventos = ManagerDeEventos.getInstancia();
 	
-	public ZonaDeCobertura(Ubicacion epicentro, Integer radio, String nombre) {
+	public ZonaDeCobertura(Ubicacion epicentro, int radio, String nombre) {
 		this.epicentro = epicentro;
 		this.radio = radio;
 		this.nombre = nombre;
-		this.managerDeEventos.agregarZonaDeCoberturaNueva(this);
-		this.agregarMuestrasALaZona();
+		//this.managerDeEventos.agregarZonaDeCoberturaNueva(this); arreglar!!!!
 	}
 
 	public Ubicacion getEpicentro() {
 		return epicentro;
 	}
 
-	public Integer getRadio() {
+	public int getRadio() {
 		return radio;
 	}
 
@@ -34,25 +33,26 @@ public class ZonaDeCobertura {
 	}
 	
 	public void agregarMuestrasALaZona() {
-		for(Muestra muestra : managerDeEventos.getMuestrasReportadas()) {
-			if(this.contieneUbicacion(muestra.getUbicacionDeLaMuestra())) {
-		}
-			muestrasDeLaZona.add(muestra);
-		}
+		muestrasDeLaZona.addAll(this.muestrasCoincidentesUbicacion().stream()
+		.filter(m -> !this.muestrasDeLaZona.contains(m)).toList());
 	} 
-
+	
+	public List<Muestra> muestrasCoincidentesUbicacion() {
+		return managerDeEventos.getMuestrasReportadas().stream()
+				.filter(m -> this.contieneUbicacion(m.getUbicacionDeLaMuestra())).toList();
+	}
+	
 	public ArrayList<Muestra> getMuestrasDeLaZona() {
 		return muestrasDeLaZona;
 	}
 	
     public boolean contieneMuestra(Muestra muestra) {
-        return muestrasDeLaZona.contains(muestra);
+        return this.contieneUbicacion(muestra.getUbicacionDeLaMuestra());
     }
-
 
 	//Devuelve si una zona se solapa con otra zona
 	public boolean seSolapaCon(ZonaDeCobertura otraZona) {
-        final double distanciaEntreEpicentros = this.getEpicentro().distanciaEntreDosUbicaciones(this.getEpicentro(), otraZona.getEpicentro());
+        final double distanciaEntreEpicentros = this.getEpicentro().distanciaHaciaUbicacion(otraZona.getEpicentro());
         
         return distanciaEntreEpicentros < (this.radio + otraZona.radio);
     }
@@ -69,8 +69,7 @@ public class ZonaDeCobertura {
     }
 	
     public boolean contieneUbicacion(Ubicacion ubicacion) {
-        double distancia = this.getEpicentro().distanciaEntreDosUbicaciones(this.getEpicentro(), ubicacion);
+        double distancia = this.getEpicentro().distanciaHaciaUbicacion(ubicacion);
         return distancia <= this.radio;
     }
-
 }

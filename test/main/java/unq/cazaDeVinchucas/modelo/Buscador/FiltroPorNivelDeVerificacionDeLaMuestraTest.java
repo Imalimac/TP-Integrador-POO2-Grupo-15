@@ -9,7 +9,9 @@ import java.io.File;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import main.java.unq.cazaDeVinchucas.controlador.ManagerDeEventos;
 import main.java.unq.cazaDeVinchucas.modelo.Ubicacion;
+import main.java.unq.cazaDeVinchucas.modelo.ZonaDeCobertura;
 import main.java.unq.cazaDeVinchucas.modelo.muestra.Muestra;
 import main.java.unq.cazaDeVinchucas.modelo.muestra.Opinion;
 import main.java.unq.cazaDeVinchucas.modelo.usuario.Usuario;
@@ -17,6 +19,9 @@ import main.java.unq.cazaDeVinchucas.modelo.usuario.Usuario;
 
 
 class FiltroPorNivelDeVerificacionDeLaMuestraTest {
+	ManagerDeEventos manager;
+	ZonaDeCobertura zonaMock;
+	
 	Usuario usuarioMock;
 	File fileMock;
 	Ubicacion ubicacionMock;
@@ -34,6 +39,7 @@ class FiltroPorNivelDeVerificacionDeLaMuestraTest {
 	
 	@BeforeEach
 	public void setUp() {
+		manager = ManagerDeEventos.getInstancia();
 		
 		usuarioMock = mock(Usuario.class);
 		fileMock = mock(File.class);
@@ -42,6 +48,10 @@ class FiltroPorNivelDeVerificacionDeLaMuestraTest {
 		opinionExpertaA = mock(Opinion.class);
 		when(opinionExpertaA.getTipo()).thenReturn("Experto");
 		when(opinionExpertaA.getOpinion()).thenReturn("Vinchuca");
+		
+		zonaMock = mock(ZonaDeCobertura.class);
+		when(zonaMock.contieneMuestra(muestra)).thenReturn(true);
+		manager.agregarZonaDeCoberturaNueva(zonaMock);
 		
 		opinionExpertaB = mock(Opinion.class);
 		when(opinionExpertaB.getTipo()).thenReturn("Experto");

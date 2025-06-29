@@ -1,6 +1,7 @@
 package main.java.unq.cazaDeVinchucas.modelo;
 
-import main.java.unq.cazaDeVinchucas.controlador.ManagerDeEventos;
+import java.util.ArrayList;
+import java.util.List;
 import main.java.unq.cazaDeVinchucas.modelo.muestra.Muestra;
 import main.java.unq.cazaDeVinchucas.servicio.FuncionalidadExterna;
 
@@ -8,12 +9,12 @@ public class Organizacion {
 	private Ubicacion ubicacionDeLaOrganizacion; 
 	private String tipoDeOrganizacion;
 	private int cantidadDePersonal;
-
 	private FuncionalidadExterna funcionalidadNuevaMuestra;
 	private FuncionalidadExterna funcionalidadValidacionDeMuestra;
+	private List<ZonaDeCobertura> suscripciones = new ArrayList<ZonaDeCobertura>();
 	
 
-	public Organizacion(Ubicacion ubicacionDeLaOrganizacion, String tipoDeOrganizacion, Integer cantidadDePersonal,
+	public Organizacion(Ubicacion ubicacionDeLaOrganizacion, String tipoDeOrganizacion, int cantidadDePersonal,
 			FuncionalidadExterna funcionalidadNuevaMuestra, FuncionalidadExterna funcionalidadValidacionDeMuestra) {
 		this.ubicacionDeLaOrganizacion = ubicacionDeLaOrganizacion;
 		this.tipoDeOrganizacion = tipoDeOrganizacion;
@@ -43,13 +44,21 @@ public class Organizacion {
 		return cantidadDePersonal;
 	}
 
-	public void setCantidadDePersonal(Integer cantidadDePersonal) {
+	public void setCantidadDePersonal(int cantidadDePersonal) {
 		this.cantidadDePersonal = cantidadDePersonal;
 	}
-
-
 	
-
+	public List<ZonaDeCobertura> getSuscripciones() {
+		return this.suscripciones;
+	}
+	
+	public void suscribirseA(ZonaDeCobertura zona) {
+		this.suscripciones.add(zona);
+	}
+	
+	public void desuscribirseA(ZonaDeCobertura zona) {
+		this.suscripciones.remove(zona);
+	}
 	
 	public void funcionalidadNuevaMuestra(ZonaDeCobertura zona, Muestra muestra) {
 		this.funcionalidadNuevaMuestra.nuevoEvento(this, zona, muestra);
@@ -59,7 +68,3 @@ public class Organizacion {
 		this.funcionalidadValidacionDeMuestra.nuevoEvento(this, zona, muestra);
 	} 
 }
-	
-
-
- 

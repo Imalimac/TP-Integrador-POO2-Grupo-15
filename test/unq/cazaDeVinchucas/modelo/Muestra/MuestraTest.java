@@ -10,7 +10,10 @@ import java.util.Arrays;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
+
+import main.java.unq.cazaDeVinchucas.controlador.ManagerDeEventos;
 import main.java.unq.cazaDeVinchucas.modelo.Ubicacion;
+import main.java.unq.cazaDeVinchucas.modelo.ZonaDeCobertura;
 import main.java.unq.cazaDeVinchucas.modelo.muestra.EstadoConOpinionExperta;
 import main.java.unq.cazaDeVinchucas.modelo.muestra.EstadoNormal;
 import main.java.unq.cazaDeVinchucas.modelo.muestra.Muestra;
@@ -18,9 +21,12 @@ import main.java.unq.cazaDeVinchucas.modelo.muestra.Opinion;
 import main.java.unq.cazaDeVinchucas.modelo.usuario.Usuario;
 
 public class MuestraTest {
+	private ManagerDeEventos manager;
 	
 	Opinion opinionMock;
 	Opinion opinion2Mock;
+	
+	ZonaDeCobertura zonaMock;
 	
 	Usuario usuarioMock;
 	File fileMock;
@@ -34,6 +40,7 @@ public class MuestraTest {
 	
 	@Before
 	public void setUp() {
+		manager = ManagerDeEventos.getInstancia();
 		opinionMock = mock(Opinion.class);
 		when(opinionMock.getOpinion()).thenReturn("Vinchuca");
 		when(opinionMock.getTipo()).thenReturn("Experto");
@@ -41,6 +48,10 @@ public class MuestraTest {
 		opinion2Mock = mock(Opinion.class);
 		when(opinion2Mock.getOpinion()).thenReturn("Vinchuca");
 		when(opinion2Mock.getTipo()).thenReturn("Normal");
+		
+		zonaMock = mock(ZonaDeCobertura.class);
+		when(zonaMock.contieneMuestra(muestra)).thenReturn(true);
+		manager.agregarZonaDeCoberturaNueva(zonaMock);
 		
 		usuarioMock = mock(Usuario.class);
 		fileMock = mock(File.class);

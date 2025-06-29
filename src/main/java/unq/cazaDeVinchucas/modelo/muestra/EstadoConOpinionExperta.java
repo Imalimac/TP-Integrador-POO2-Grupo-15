@@ -2,8 +2,6 @@ package main.java.unq.cazaDeVinchucas.modelo.muestra;
 
 import java.util.Collections;
 import java.util.List;
-
-import main.java.unq.cazaDeVinchucas.controlador.ManagerDeEventos;
 import main.java.unq.cazaDeVinchucas.utilidades.BuscadorDeElementosDeUnaLista;
 
 public class EstadoConOpinionExperta extends EstadoMuestra {
@@ -15,7 +13,6 @@ public class EstadoConOpinionExperta extends EstadoMuestra {
 	@Override
 	public String resultadoFinal() {
 		List<String> listaDeResultadosOpinionesExpertas = this.getMuestra().getListaDeResultadosExpertosDeLaMuestra();
-		
 		BuscadorDeElementosDeUnaLista <String> buscador = new BuscadorDeElementosDeUnaLista<String>();
 		
 		if(buscador.hayUnUnicoElementoConFrecuenciaMaxima(listaDeResultadosOpinionesExpertas)) {
@@ -27,8 +24,7 @@ public class EstadoConOpinionExperta extends EstadoMuestra {
 
 	@Override
 	public EstadoMuestra siguienteEstado() {
-		ManagerDeEventos manager = ManagerDeEventos.getInstancia();
-		manager.notificarNuevaValidacionDeMuestra(getMuestra());
+		this.getMuestra().notificarVerificacionAManager();
 		return new EstadoVerificada(this.getMuestra());
 	}
 

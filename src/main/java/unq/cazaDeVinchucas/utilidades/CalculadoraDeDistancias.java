@@ -8,8 +8,7 @@ import static java.lang.Math.atan2;
 
 
 public class CalculadoraDeDistancias {
-	
-	
+
     // Devuelve la distancia entre dos puntos geográficos usando la fórmula de Haversine
 	public double calcularDistancia(double lat1, double lon1, double lat2, double lon2) {
 	    double R = 6371; // Radio de la Tierra en km
@@ -19,14 +18,4 @@ public class CalculadoraDeDistancias {
 	    double c = 2 * atan2(sqrt(a), sqrt(1 - a));
 	    return R * c;
 	}
-
-	//Constructor
-	public CalculadoraDeDistancias() {
-		super();
-	}
-	
-	
-	
-	
-
 }

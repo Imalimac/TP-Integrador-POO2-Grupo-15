@@ -9,6 +9,9 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -24,30 +27,31 @@ import main.java.unq.cazaDeVinchucas.servicio.FuncionalidadExterna;
 
 public class ManagerDeEventosTest {
 
-		private ManagerDeEventos manager;
-		
-		FuncionalidadExterna fun1;
-		FuncionalidadExterna fun2;
+	private ManagerDeEventos manager;
+	
+	FuncionalidadExterna fun1;
+	FuncionalidadExterna fun2;
 
-		Usuario usuarioMock;
-		File fileMock;
-		Ubicacion ubicacionMock;
+	Usuario usuarioMock;
+	File fileMock;
+	Ubicacion ubicacionMock;
 
-		Opinion opinionExpertaA;
-		Opinion opinionExpertaB;
-		Opinion opinionNormalA;
+	Opinion opinionExpertaA;
+	Opinion opinionExpertaB;
+	Opinion opinionNormalA;
 
-		Muestra muestra;
+	Muestra muestraMock;
 
-		private Organizacion organizacion;
-		private Organizacion organizacionMock;
+	private Organizacion organizacion;
+	private Organizacion organizacionMock;
 
-		private ZonaDeCobertura zonaMock;
+	private ZonaDeCobertura zonaMock;
 
-		private Ubicacion ubicacion1;
+	private Ubicacion ubicacion1;
 
-		private EstadoConOpinionExperta estadoExperto;
+	private EstadoConOpinionExperta estadoExperto;
 
+	List<ZonaDeCobertura> listaZona;
 	@BeforeEach
 	public void setUp() {
 		manager = ManagerDeEventos.getInstancia();
@@ -62,27 +66,30 @@ public class ManagerDeEventosTest {
 			
 		estadoExperto = mock(EstadoConOpinionExperta.class);
 		when(estadoExperto.condicionDeCambioDeEstado()).thenReturn(true);
-	
-		muestra = new Muestra(usuarioMock, fileMock, ubicacionMock);
-		muestra.setEstadoDeLaMuestra(estadoExperto);        
+		
+		muestraMock = mock(Muestra.class);
+		when(muestraMock.getEstadoDeLaMuestra()).thenReturn(estadoExperto);
+		
+		zonaMock = mock(ZonaDeCobertura.class);
+		when(zonaMock.contieneMuestra(muestraMock)).thenReturn(true);
+		manager.agregarZonaDeCoberturaNueva(zonaMock);
    	
+		listaZona = Arrays.asList(zonaMock);
+		
 		organizacion = new Organizacion(ubicacion1, "ONG", 2, fun1, fun2);
 		organizacionMock = mock(Organizacion.class);
-    
-		zonaMock = mock(ZonaDeCobertura.class);
-		when(zonaMock.contieneMuestra(muestra)).thenReturn(true);
+		when(organizacionMock.getSuscripciones()).thenReturn(listaZona);
     }
  
 	@Test
 	public void suscribirYDesuscribir() {
 		// suscribir
-		organizacion.suscribirseA(zonaMock);
+		manager.suscribir(organizacion, zonaMock);
 		assertFalse(manager.getSuscriptores().isEmpty());
-		assertEquals(manager.getSuscriptores().values().iterator().next(), zonaMock);
-		assertEquals(manager.getSuscriptores().keySet().iterator().next(), organizacion);
+		assertEquals(manager.getSuscriptores().getFirst(), organizacion);
 
 		// desuscribir
-		organizacion.desuscribirseA(zonaMock);
+		manager.desuscribir(organizacion, zonaMock);
 		assertTrue(manager.getSuscriptores().isEmpty());
 
 	}
@@ -90,17 +97,17 @@ public class ManagerDeEventosTest {
 	@Test
     public void notificarNuevaValidacionDeMuestra() {
     	manager.suscribir(organizacionMock, zonaMock);
-    	manager.notificarNuevaValidacionDeMuestra(muestra);
+    	manager.notificarNuevaValidacionDeMuestra(Arrays.asList(zonaMock), muestraMock);
     	
-    	verify(organizacionMock).funcionalidadValidacionDeMuestra(zonaMock,muestra);
+    	verify(organizacionMock).funcionalidadValidacionDeMuestra(zonaMock, muestraMock);
     } 
 
 	@Test
 	public void notificarNuevaMuestra() {
     	manager.suscribir(organizacionMock, zonaMock);
-    	manager.notificarNuevaMuestra(muestra);
+    	manager.notificarNuevaMuestra(Arrays.asList(zonaMock), muestraMock);
     	
-    	verify(organizacionMock).funcionalidadNuevaMuestra(zonaMock,muestra);
+    	verify(organizacionMock).funcionalidadNuevaMuestra(zonaMock, muestraMock);
 	}
 
 }
