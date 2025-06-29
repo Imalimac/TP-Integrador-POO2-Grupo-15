@@ -8,7 +8,7 @@ public class Organizacion {
 	private Ubicacion ubicacionDeLaOrganizacion; 
 	private String tipoDeOrganizacion;
 	private int cantidadDePersonal;
-	private ManagerDeEventos managerDeEventos = ManagerDeEventos.getInstancia();
+
 	private FuncionalidadExterna funcionalidadNuevaMuestra;
 	private FuncionalidadExterna funcionalidadValidacionDeMuestra;
 	
@@ -47,13 +47,9 @@ public class Organizacion {
 		this.cantidadDePersonal = cantidadDePersonal;
 	}
 
-	public void suscribirseA(ZonaDeCobertura zona) {
-		managerDeEventos.suscribir(this, zona);
-	}
+
 	
-	public void desuscribirseA(ZonaDeCobertura zona) {
-		managerDeEventos.desuscribir(this, zona);
-	}
+
 	
 	public void funcionalidadNuevaMuestra(ZonaDeCobertura zona, Muestra muestra) {
 		this.funcionalidadNuevaMuestra.nuevoEvento(this, zona, muestra);

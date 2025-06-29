@@ -54,6 +54,8 @@ public class ManagerDeEventos {
                 Organizacion organizacion = entrada.getKey();
                 organizacion.funcionalidadValidacionDeMuestra(zona, muestra);
             }
+            //pasarlo como parametro con funcion auxiliar la funcionalidad interna
+            
         }
 	}
 	

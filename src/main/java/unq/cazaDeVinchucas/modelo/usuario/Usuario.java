@@ -10,10 +10,10 @@ import java.io.File;
 import java.time.LocalDate;
 
 public class Usuario {
-	private List<LocalDate> fechasDeEnvios = new ArrayList<>();
-	private List<LocalDate> fechasDeRevisiones = new ArrayList<>();
-	private List<Muestra>muestrasOpinadas = new ArrayList<Muestra>();
-	private List<Muestra>muestrasEnviadas = new ArrayList<Muestra>();
+	private List<LocalDate> fechasDeEnvios = new ArrayList<LocalDate>();
+	private List<LocalDate> fechasDeRevisiones = new ArrayList<LocalDate>();
+	private List<Muestra> muestrasOpinadas = new ArrayList<Muestra>();
+	private List<Muestra> muestrasEnviadas = new ArrayList<Muestra>();
 	
 	public String nivelDeUsuario() {
 		if (this.cumpleCondicionDeExperto()) {
@@ -28,11 +28,15 @@ public class Usuario {
 	}
 	
 	public List<Muestra> getMuestrasEnviadas() {
-		return muestrasEnviadas;
+		return this.muestrasEnviadas;
 	}
 	
 	public List<LocalDate> getfechasDeRevisiones() {
-		return fechasDeRevisiones;
+		return this.fechasDeRevisiones;
+	}
+	
+	public List<LocalDate> getfechasDeEnvios() {
+		return this.fechasDeEnvios;
 	}
 	
 	public void enviarUnaMuestra(File fotoDeLaMuestra, Ubicacion ubicacionDeLaMuestra) {
@@ -41,7 +45,7 @@ public class Usuario {
 	}
 	
 	public void registrarEnvio() {
-	    fechasDeEnvios.add(LocalDate.now());
+	    this.fechasDeEnvios.add(LocalDate.now());
 	}
 
 	public void opinarSobreUnaMuestra(Muestra muestra, String opinion) {
@@ -53,7 +57,7 @@ public class Usuario {
 	}
 	
 	public void registrarRevision() {
-	    fechasDeRevisiones.add(LocalDate.now());
+	    this.fechasDeRevisiones.add(LocalDate.now());
 	}
 
 	public boolean cumpleCondicionDeExperto() {
