@@ -82,6 +82,14 @@ public class Muestra {
 		return this.estadoDeLaMuestra.resultadoFinal();
 	}
 	
+	public boolean existeOpinionDeUsuario(Usuario user) {
+		return this.opinionesDeLaMuestra.stream().map(o -> o.getUsuario()).anyMatch(u -> u.equals(user));
+	}
+	
+	public Opinion getOpinionDelUsuario(Usuario user) {
+		return this.opinionesDeLaMuestra.stream().filter(o -> o.getUsuario().equals(user)).findFirst().orElse(null);
+	}
+	
 	public void notificarNuevaMuestraAManager() {
 		managerDeEventos.notificarNuevaMuestra(managerDeEventos.zonaDe(this), this);
 	}

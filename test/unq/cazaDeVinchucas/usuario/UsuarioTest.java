@@ -35,17 +35,6 @@ public class UsuarioTest {
 		assertEquals(Arrays.asList(),user.getMuestrasOpinadas());
 	}
 	
-	@Test
-	public void registrarEnvio() {
-		user.registrarEnvio();
-		assertFalse(user.getfechasDeEnvios().isEmpty());
-	} 
-	
-	@Test
-	public void registrarRevision() {
-		user.registrarRevision();
-		assertFalse(user.getfechasDeRevisiones().isEmpty());
-	}
 	
 	@Test
 	public void condicionExperto() {

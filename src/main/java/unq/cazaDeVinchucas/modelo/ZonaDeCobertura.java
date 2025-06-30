@@ -17,7 +17,7 @@ public class ZonaDeCobertura {
 		this.epicentro = epicentro;
 		this.radio = radio;
 		this.nombre = nombre;
-		//this.managerDeEventos.agregarZonaDeCoberturaNueva(this); arreglar!!!!
+		this.managerDeEventos.agregarZonaDeCoberturaNueva(this);
 	}
 
 	public Ubicacion getEpicentro() {

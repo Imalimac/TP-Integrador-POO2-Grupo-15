@@ -10,8 +10,6 @@ import java.io.File;
 import java.time.LocalDate;
 
 public class Usuario {
-	private List<LocalDate> fechasDeEnvios = new ArrayList<LocalDate>();
-	private List<LocalDate> fechasDeRevisiones = new ArrayList<LocalDate>();
 	private List<Muestra> muestrasOpinadas = new ArrayList<Muestra>();
 	private List<Muestra> muestrasEnviadas = new ArrayList<Muestra>();
 	
@@ -31,44 +29,35 @@ public class Usuario {
 		return this.muestrasEnviadas;
 	}
 	
-	public List<LocalDate> getfechasDeRevisiones() {
-		return this.fechasDeRevisiones;
+	public List<LocalDate> fechasDeRevision() {
+		return this.muestrasOpinadas.stream().filter(m -> m.existeOpinionDeUsuario(this))
+				.map(m -> m.getOpinionDelUsuario(this)).map(o -> o.getFecha()).toList();
 	}
 	
-	public List<LocalDate> getfechasDeEnvios() {
-		return this.fechasDeEnvios;
+	public List<LocalDate> fechasDeEnvios() {
+		return this.muestrasEnviadas.stream().map(f -> f.getFechaDeCreacion()).toList();
 	}
 	
 	public void enviarUnaMuestra(File fotoDeLaMuestra, Ubicacion ubicacionDeLaMuestra) {
 		this.muestrasEnviadas.add(new Muestra(this,fotoDeLaMuestra, ubicacionDeLaMuestra));
-		this.registrarEnvio();
-	}
-	
-	public void registrarEnvio() {
-	    this.fechasDeEnvios.add(LocalDate.now());
 	}
 
 	public void opinarSobreUnaMuestra(Muestra muestra, String opinion) {
 		if(!this.getMuestrasOpinadas().contains(muestra) && muestra.getEstadoDeLaMuestra().getEstado()!="Verificada") {
 		muestra.agregarOpinion(new Opinion(this, muestra, opinion));
-		this.registrarRevision(); 
 		this.muestrasOpinadas.add(muestra);
 		}
 	}
 	
-	public void registrarRevision() {
-	    this.fechasDeRevisiones.add(LocalDate.now());
-	}
-
 	public boolean cumpleCondicionDeExperto() {
 		LocalDate hoy = LocalDate.now();
 	    LocalDate hace30Dias = hoy.minusDays(30);
 
-	    long cantidadEnviosRecientes = fechasDeEnvios.stream()
+	    long cantidadEnviosRecientes = this.fechasDeEnvios().stream()
 	        .filter(fecha -> !fecha.isBefore(hace30Dias))
 	        .count();
 
-	    long cantidadRevisionesRecientes = fechasDeRevisiones.stream()
+	    long cantidadRevisionesRecientes = this.fechasDeRevision().stream()
 	        .filter(fecha -> !fecha.isBefore(hace30Dias))
 	        .count();
 

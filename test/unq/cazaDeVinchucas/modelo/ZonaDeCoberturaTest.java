@@ -3,10 +3,11 @@ package unq.cazaDeVinchucas.modelo;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import main.java.unq.cazaDeVinchucas.modelo.Ubicacion;
 import main.java.unq.cazaDeVinchucas.modelo.ZonaDeCobertura;
 import main.java.unq.cazaDeVinchucas.modelo.muestra.Muestra;
 import main.java.unq.cazaDeVinchucas.controlador.ManagerDeEventos;
-import main.java.unq.cazaDeVinchucas.modelo.Ubicacion;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
@@ -32,7 +33,7 @@ class ZonaDeCoberturaTest {
 	@BeforeEach
 	public void setUp() {
 		manager = ManagerDeEventos.getInstancia();
-		
+		manager.reset();
 		ubicacion1 = new Ubicacion(34,58);
 		ubicacion2 = new Ubicacion(34,58);
 		ubicacion3 = new Ubicacion(24,64);
@@ -45,16 +46,16 @@ class ZonaDeCoberturaTest {
 		zona2 = new ZonaDeCobertura(ubicacion2, 3, "Bernal");
 		zona3 = new ZonaDeCobertura(ubicacion3, 50, "Salta");
 	}
-	/*
+	
 	@Test
 	public void creacionDeZona() {
 		assertTrue(manager.getZonasDeCobertura().contains(zona1));
 		assertTrue(manager.getZonasDeCobertura().contains(zona2));
 	}
-	*/
+	
 	@Test
 	public void muestrasReportadas() {
-		assertFalse(zona1.getMuestrasDeLaZona().contains(muestraMock));
+		assertTrue(zona1.getMuestrasDeLaZona().contains(muestraMock));
 	}
 	
 	@Test
@@ -74,12 +75,12 @@ class ZonaDeCoberturaTest {
 		assertTrue(zona1.contieneUbicacion(ubicacion1));
 		assertFalse(zona1.contieneUbicacion(ubicacion3));
 	}
-	/*
+	
 	@Test
 	public void contieneMuestra() {
-		assertFalse(zona1.contieneMuestra(muestraMock));
+		assertTrue(zona1.contieneMuestra(muestraMock));
 	} 
-	*/
+	
 	@Test
 	public void zonasSolapadas() {
 		assertEquals(Arrays.asList(zona2), zona1.zonasSolapadas(Arrays.asList(zona2,zona3)));

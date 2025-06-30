@@ -16,6 +16,12 @@ public class ManagerDeEventos {
 		return instancia;
 	}
 	
+	public void reset() {
+		muestrasReportadas.clear();
+		zonasDeCobertura.clear();
+		suscriptores.clear();
+	}
+	
 	public List<Muestra> getMuestrasReportadas() {
 		return muestrasReportadas;
 	}
