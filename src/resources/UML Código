@@ -32,35 +32,41 @@ FiltroOr <.. CriterioDeFiltracion
 
 
 Class ManagerDeEventos{
-	- static final ManagerDeEventos:;
+	- static final instancia: ManagerDeEventos;
 	- muestrasReportadas: List<Muestra>; 
 	- LzonasDeCobertura: List<ZonaDeCobertura>; 
-	- suscriptores: Map <Organizacion, ZonaDeCobertura>;
+	- suscriptores: List <Organizacion>;
 	
-	- ManagerDeEventos();
 	+ static getInstancia(): ManagerDeEventos;
 	
+	+ reset(): void;
 	+ getMuestrasReportadas(): List<Muestra>;
 	+ agregarMuestra(Muestra nuevaMuestraReportada): void;
 	+ getZonasDeCobertura(): List<ZonaDeCobertura>;
 	+ agregarZonaDeCoberturaNueva(ZonaDeCobertura nuevaZonaDeCobertura): void;
-	+ getSuscriptores():Map<Organizacion, ZonaDeCobertura>;
-	+ suscribir(Organizacion organizacion, ZonaDeCobertura zona): void;
-    + desuscribir(Organizacion organizacion, ZonaDeCobertura zona): void;
+	+ getSuscriptores(): List<Organizacion>;
+	+ suscribir(Organizacion orga, ZonaDeCobertura zona): void;
+    + desuscribir(Organizacion orga, ZonaDeCobertura zona): void;
+    + esSuscriptior(Organizacion org): void;
+    + organizacionesSuscritasA(List<ZonaDeCobertura> zona): List <Organizacion>;
 	+ notificarNuevaValidacionDeMuestra(Muestra muestra): void;
 	+ notificarNuevaMuestra(Muestra muestra): void;
+	+ zonaDe(Muestra muestra): List<ZonaDeCobertura>;
 }
 
 Class Organizacion {
 	- ubicacionDeLaOrganizacion: Ubicacion; 
 	- tipoDeOrganizacion: String;
-	- cantidadDePersonal: Integer;
-	- managerDeEventos: ManagerDeEventos;
+	- cantidadDePersonal: int;
+	- funcionalidadNuevaMuestra: FuncionalidadExterna;
+	- funcionalidadValidacionDeMuestra: FuncionalidadExterna;
+	- suscripciones:List<ZonaDeCobertura>;
 	
 
 	+ Organizacion(Ubicacion ubicacionDeLaOrganizacion, String tipoDeOrganizacion, Integer cantidadDePersonal);
 	+ getUbicacionDeLaOrganizacion(): Ubicacion;
 	+ setUbicacionDeLaOrganizacion(Ubicacion ubicacionDeLaOrganizacion): void;
+	+ getTipoDeOrganizacion(): String;
 	+ setTipoDeOrganizacion(String tipoDeOrganizacion): void;
 	+ getCantidadDePersonal(): Integer;
 	+ setCantidadDePersonal(Integer cantidadDePersonal): void;
@@ -91,9 +97,10 @@ Class ZonaDeCobertura {
 	+ ZonaDeCobertura(Ubicacion epicentro, Integer radio, String nombre)
 	+ getEpicentro(): Ubicacion;	
 	+ getRadio(): Integer;
-	+ getNombre():String 
-	+ agregarMuestrasALaZona(): void 
-	+ getMuestrasDeLaZona():ArrayList<Muestra> 
+	+ getNombre(): String; 
+	+ agregarMuestrasALaZona(): void;
+	+ muestrasCoincidentesUbicacion(): List <Muestra>; 
+	+ getMuestrasDeLaZona(): ArrayList<Muestra>; 
     + contieneMuestra(Muestra muestra): boolean
 	+ seSolapaCon(ZonaDeCobertura otraZona): boolean
     + zonasSolapadas(List<ZonaDeCobertura> listaDeZonas): List<ZonaDeCobertura> 
@@ -226,20 +233,24 @@ Class Muestra{
 	+ getListaOpinionesExpertasDeLaMuestra(): List<Opinion>;
 	+ getListaDeResultadosExpertosDeLaMuestra(): List<String>;
 	+ resultadoFinal(): String;
+	+ existeOpinionDeUsuario(Usuario user): boolean; 
+	+ getOpinionDelUsuario(Usuario user): Opinion;
+	+ notificarNuevaMuestraAManager(): void;
+	+ notificarVerificacionAManager(): void;
 }
 
 
 Class Usuario{
-	- fechasDeEnvios: List<LocalDate> ;
-	- List<LocalDate> fechasDeRevisiones: List<LocalDate>;
 	- muestrasOpinadas: ArrayList<Muestra>;
 	- muestrasEnviadas: ArrayList<Muestra>;
 	
 	+ nivelDeUsuario(): String;	
 	+ getMuestrasEnviadas(): ArrayList<Muestra>; 
-	+ registrarEnvio(): void;
+	+ getMuestrasOpinadas(): ArrayList<Muestra>;
+	+ fechasDeRevision(): List<LocalDate>; 
+	+ fechasDeEnvios(): List<LocalDate>; 
+	+ enviarUnaMuestra(File fotoDeLaMuestra, Ubicacion ubicacionDeLaMuestra): void; 
 	+ opinarSobreUnaMuestra(Muestra muestra, String opinion): void;
-	+ registrarRevision(): void;
 	+ cumpleCondicionDeExperto(): boolean; 
 }
 
@@ -258,7 +269,7 @@ Class Opinion {
 	+ getUsuario(): Usuario;
 	+ getMuestra(): Muestra;
 	+ getOpinion(): String;
-	+  getFecha(): LocalDate;
+	+ getFecha(): LocalDate;
 	+ getTipo(): String; 
 
 }
